@@ -68,7 +68,11 @@ namespace Game_Logic_Class
         /// </summary>
         public static void PlayOneRound()
         {
-
+            // Creating a loop to loop through all of the players
+            for (int i = 0; i < NumberOfPlayers; i++)
+            {
+                Players[i].Play(die1, die2);
+            }
         }
 
     }//end SnakesAndLadders
