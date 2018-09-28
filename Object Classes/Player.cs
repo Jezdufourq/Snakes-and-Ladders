@@ -167,9 +167,14 @@ namespace Object_Classes {
         /// <returns>true if reached the Final Square</returns>
         private bool ReachedFinalSquare() {
 
-            //  CODE NEEDS TO BE ADDED HERE
-
-            return false; // so the class can compile without error
+            if (position == Board.FINISH_SQUARE_NUMBER)
+            {
+                return true;
+            }
+            else
+            {
+                return false;            
+            }
         } //end ReachedFinalSquare
 
 
