@@ -49,11 +49,15 @@ namespace Space_Race
             //int numofPlayers = SpaceRaceGame.NumberOfPlayers;
 
             // Completing the game loop until the game has finished
-            //while (!SpaceRaceGame.gameFinish)
-            //{
-            //    SpaceRaceGame.PlayOneRound();
-            //    DisplayPlayerRound();
-            //} // end game loop
+            int roundNumber = 0;
+            while (!SpaceRaceGame.gameFinish)
+            {
+                RoundNumberPrint(roundNumber);
+                SpaceRaceGame.PlayOneRound();
+                DisplayPlayerRound();
+                roundNumber++;
+
+            } // end game loop
 
             // TODO: Need to determine if anyone has won the game
 
@@ -84,6 +88,23 @@ namespace Space_Race
         {
             Console.WriteLine();
         } //end DisplayPlayerRound
+
+        /// <summary>
+        /// Displaying the round number to the console
+        /// Pre:    none.
+        /// Post:   Round number is displayed to the console
+        /// </summary>
+        static void RoundNumberPrint(int roundNumber)
+        {
+            if (roundNumber == 0)
+            {
+                Console.WriteLine("First Round");
+            }
+            else
+            {
+                Console.WriteLine("Next Round");
+            }
+        } //end RoundNumberPrint
 
 
 
@@ -150,13 +171,9 @@ namespace Space_Race
         /// </summary>
         static void PressEnter()
         {
-            Console.Write("\nPress Enter to terminate program ...");
+            //Console.Write("\nPress Enter to terminate program ...");
             Console.ReadKey();
         } // end PressAny
-
-
-        
-
 
     }//end Console class
 }
