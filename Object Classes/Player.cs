@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Diagnostics;
 
+
 namespace Object_Classes {
     /// <summary>
     /// A player who is currently located  on a particular square 
@@ -137,10 +138,58 @@ namespace Object_Classes {
         /// <param name="d2">second die</param>
         public void Play(Die d1, Die d2) {
 
-            //  CODE NEEDS TO BE ADDED HERE
+            // roll dice, update position/location/fuel, check if they've reached/passed the finish square,
+            // check if its a worm/blackhole, update position/location if its worm/blackhole
+
+            // Updating position
+            position += d1.Roll() + d2.Roll();
+
+            // Updating location
+            int location = 0;
+
+            
+
+            // Sorts the current position of the player into specific squares
+            if (Board.Squares[position].Name == "blackHole")
+            {
+                
+            }
+            else if (Board.Squares[position].Name == "wormHole")
+            {
+
+            }
+
+            else if (Board.Squares[position].Name == "regularSquare")
+            {
+                BlackholeSquare.
+            }
+
+            else if (Board.Squares[position].Name == "Finish")
+            {
+
+            }
+            else
+            {
+                Console.WriteLine("Error: Error in Player class");
+            }
 
 
+
+
+            //if (position >= 56)
+            //{
+            //    position = Board.FINISH_SQUARE_NUMBER;
+            //}
+            //else
+            //{
+            //}
+            // Updating the location to the position
+
+            //location = Board.Squares[position].Number;
         } // end Play.
+
+
+
 
 
         // <summary>
@@ -166,10 +215,16 @@ namespace Object_Classes {
         /// </summary>
         /// <returns>true if reached the Final Square</returns>
         private bool ReachedFinalSquare() {
+            // Checking to see if the player has rolled over it
 
-            //  CODE NEEDS TO BE ADDED HERE
-
-            return false; // so the class can compile without error
+            if (position == Board.FINISH_SQUARE_NUMBER)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         } //end ReachedFinalSquare
 
 
