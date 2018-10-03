@@ -103,19 +103,19 @@ namespace Object_Classes {
                     if (i == blackHoles[j, 0])
                     {
                         string squareName = i.ToString();
-                        squares[i] = new BlackholeSquare("blackHole" + squareName, i + 1, blackHoles[j, 1], blackHoles[j, 2]);
+                        squares[i] = new BlackholeSquare("blackHole" + squareName, i, blackHoles[j, 1], blackHoles[j, 2]);
                         break;
                     }
                     else if (i == wormHoles[j, 0])
                     {
                         string squareName = i.ToString();
-                        squares[i] = new WormholeSquare("wormHole" + squareName, i + 1, wormHoles[j, 1], wormHoles[j, 2]);
+                        squares[i] = new WormholeSquare("wormHole" + squareName, i, wormHoles[j, 1], wormHoles[j, 2]);
                         break;
                     }
                     else if (i != wormHoles[j, 0] || i != blackHoles[j, 0])
                     {
                         string squareName = i.ToString();
-                        squares[i] = new Square("regularHole" + squareName, i + 1);
+                        squares[i] = new Square("regularHole" + squareName, i);
                     }
                 }
             }
@@ -133,13 +133,24 @@ namespace Object_Classes {
         /// <param name="squareNum"> a square number of either a Wormhole or Blackhole square</param>
         /// <param name="destNum"> destination square's number</param>
         /// <param name="amount"> amont of fuel used to jump to the deestination square</param>
-        private static void FindDestSquare(int[,] holes, int squareNum, out int destNum, out int amount) {
+        private static void FindDestSquare(int[,] holes, int squareNum, out int destNum, out int amount)
+        {
             const int start = 0, exit = 1, fuel = 2;
             destNum = 0; amount = 0;
 
-            //  CODE NEEDS TO BE ADDED HERE 
+            // Use squareNum to find which information inside "holes" we need to use
+            // Use the other details [number, dest] and [number, fuel] to find the final location
+            for (int index = 0; index < holes.Length; index++)
+            {
 
-        } //end FindDestSquare
+                if (holes[index, start] == squareNum)
+                {
+                    destNum = holes[index, exit];
+                    amount = holes[index, fuel];
+                }
+
+            }
+        } // end FindDestSquare
 
     } //end class Board
 }

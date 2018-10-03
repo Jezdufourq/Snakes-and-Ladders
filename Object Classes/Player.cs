@@ -139,7 +139,23 @@ namespace Object_Classes {
 
             //  CODE NEEDS TO BE ADDED HERE
 
+            position += d1.Roll() + d2.Roll();
 
+            //if (position >= 56)
+            //{
+            //    position = Board.FINISH_SQUARE_NUMBER;
+            //}
+            //else
+            //{
+            //}
+
+
+
+
+
+            // Updating the location to the position
+
+            //location = Board.Squares[position].Number;
         } // end Play.
 
 
@@ -166,7 +182,10 @@ namespace Object_Classes {
         /// </summary>
         /// <returns>true if reached the Final Square</returns>
         private bool ReachedFinalSquare() {
+            // Checking to see if the player has rolled over it
 
+
+            
             //  CODE NEEDS TO BE ADDED HERE
 
             return false; // so the class can compile without error

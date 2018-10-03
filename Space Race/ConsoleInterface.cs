@@ -39,6 +39,7 @@ namespace Space_Race
             }
 
             // Waiting for the user to enter into the game
+            // Mack test
             EnterRound();
 
             // Initilising and setting up the playing board
@@ -48,16 +49,24 @@ namespace Space_Race
             SpaceRaceGame.SetUpPlayers();
             //int numofPlayers = SpaceRaceGame.NumberOfPlayers;
 
-            // Completing the game loop until the game has finished
-            int roundNumber = 0;
-            while (!SpaceRaceGame.gameFinish)
-            {
-                RoundNumberPrint(roundNumber);
-                SpaceRaceGame.PlayOneRound();
-                DisplayPlayerRound();
-                roundNumber++;
+            Console.WriteLine("{0}", SpaceRaceGame.Players[1].Position);
 
-            } // end game loop
+            //Console.WriteLine("{0}", Board.Squares[12].NextSquare());
+            //Console.WriteLine("{0}", Board.square);
+            //Console.WriteLine("{0}", test);
+            //Console.WriteLine("{0}", Board.Squares[12]);
+            //Console.WriteLine("{0}", Board.Squares[12]);
+
+            // Completing the game loop until the game has finished
+            //int roundNumber = 0;
+            //while (!SpaceRaceGame.gameFinish)
+            //{
+            //    RoundNumberPrint(roundNumber);
+            //    SpaceRaceGame.PlayOneRound();
+            //    DisplayPlayerRound();
+            //    roundNumber++;
+
+            //} // end game loop
 
             // TODO: Need to determine if anyone has won the game
 
