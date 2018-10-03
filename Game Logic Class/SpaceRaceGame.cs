@@ -74,7 +74,6 @@ namespace Game_Logic_Class
             for (int i = 0; i < NumberOfPlayers; i++)
             {
                 Players[i].Play(die1, die2);
-                BlackholeSquare.LandOn(Players[i]);
             }
             
         }

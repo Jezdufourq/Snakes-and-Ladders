@@ -161,7 +161,7 @@ namespace Object_Classes {
 
             else if (Board.Squares[position].Name == "regularSquare")
             {
-                BlackholeSquare.
+
             }
 
             else if (Board.Squares[position].Name == "Finish")
