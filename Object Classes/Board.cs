@@ -98,28 +98,28 @@ namespace Object_Classes {
             int destNum = 0;
             int amount = 0;
             
-            for (int i = 1; i <= 54; i++)
+            for (int currentsquare = START_SQUARE_NUMBER + 1 ; currentsquare < FINISH_SQUARE_NUMBER ; currentsquare++)
             {
-                for (int j = 0; j <= 7; j++)
+                for (int index = 0; index < blackHoles.Length; index++)
                 {
-                    if (i == blackHoles[j, 0])
+                    if (currentsquare == blackHoles[index, 0])
                     {
-                        string squareName = i.ToString();
-                        FindDestSquare(blackHoles, i, out destNum, out amount);
-                        squares[i] = new BlackholeSquare("blackHole", i, destNum, amount);
+                        string squareName = currentsquare.ToString();
+                        FindDestSquare(blackHoles, currentsquare, out destNum, out amount);
+                        squares[currentsquare] = new BlackholeSquare("blackHole", currentsquare, destNum, amount);
                         break;
                     }
-                    else if (i == wormHoles[j, 0])
+                    else if (currentsquare == wormHoles[index, 0])
                     {
-                        string squareName = i.ToString();
-                        FindDestSquare(wormHoles, i, out destNum, out amount);
-                        squares[i] = new WormholeSquare("wormHole", i, destNum, amount);
+                        string squareName = currentsquare.ToString();
+                        FindDestSquare(wormHoles, currentsquare, out destNum, out amount);
+                        squares[currentsquare] = new WormholeSquare("wormHole", currentsquare, destNum, amount);
                         break;
                     }
-                    else if (i != wormHoles[j, 0] || i != blackHoles[j, 0])
+                    else if (currentsquare != wormHoles[index, 0] || currentsquare != blackHoles[index, 0])
                     {
-                        string squareName = i.ToString();
-                        squares[i] = new Square("regularSquare", i);
+                        string squareName = currentsquare.ToString();
+                        squares[currentsquare] = new Square("regularSquare", currentsquare);
                     }
                 }
             }
