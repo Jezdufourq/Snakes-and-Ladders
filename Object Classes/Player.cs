@@ -138,41 +138,11 @@ namespace Object_Classes {
         /// <param name="d2">second die</param>
         public void Play(Die d1, Die d2) {
 
-            // roll dice, update position/location/fuel, check if they've reached/passed the finish square,
-            // check if its a worm/blackhole, update position/location if its worm/blackhole
+            // roll dice, update position/location/, check if they've reached/passed the finish square,
+            // check if its a worm/blackholefuel, update position/location if its worm/blackhole
 
             // Updating position
             position += d1.Roll() + d2.Roll();
-
-            // Updating location
-            int location = 0;
-
-            
-
-            // Sorts the current position of the player into specific squares
-            if (Board.Squares[position].Name == "blackHole")
-            {
-                
-            }
-            else if (Board.Squares[position].Name == "wormHole")
-            {
-
-            }
-
-            else if (Board.Squares[position].Name == "regularSquare")
-            {
-
-            }
-
-            else if (Board.Squares[position].Name == "Finish")
-            {
-
-            }
-            else
-            {
-                Console.WriteLine("Error: Error in Player class");
-            }
-
 
 
 
@@ -185,7 +155,53 @@ namespace Object_Classes {
             //}
             // Updating the location to the position
 
-            //location = Board.Squares[position].Number;
+            // Updating location
+
+
+            
+
+            // Sorts the current position of the player into specific squares
+            Board.Squares[position].LandOn(this);
+
+
+            // check if finished
+            if (Board.Squares[position].Name == "Finish")
+            {
+                
+            }
+
+
+            //if (Board.Squares[position].GetType() == typeof(BlackholeSquare))
+            //{
+            //    Black
+            //}
+            //else if (Board.Squares[position].GetType() == typeof(WormholeSquare))
+            //{
+            //    Board.Squares[position].LandOn(this);
+            //}
+
+            //else if (Board.Squares[position].GetType() == typeof(Square))
+            //{
+                
+            //}
+
+            //else if (Board.Squares[position].Name == "Finish")
+            //{
+
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Error: Error in Player class");
+            //}
+
+
+
+
+
+
+            location = Board.Squares[position];
+
+
         } // end Play.
 
 

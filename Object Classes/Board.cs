@@ -100,7 +100,7 @@ namespace Object_Classes {
             
             for (int currentsquare = START_SQUARE_NUMBER + 1 ; currentsquare < FINISH_SQUARE_NUMBER ; currentsquare++)
             {
-                for (int index = 0; index < blackHoles.Length; index++)
+                for (int index = 0; index <= 7; index++)
                 {
                     if (currentsquare == blackHoles[index, 0])
                     {
@@ -144,7 +144,7 @@ namespace Object_Classes {
 
             // Use squareNum to find which information inside "holes" we need to use
             // Use the other details [number, dest] and [number, fuel] to find the final location
-            for (int index = 0; index < holes.Length; index++)
+            for (int index = 0; index <= 7; index++)
             {
                 if (holes[index, start] == squareNum)
                 {
