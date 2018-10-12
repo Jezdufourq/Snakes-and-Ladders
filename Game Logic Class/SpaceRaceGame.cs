@@ -57,8 +57,9 @@ namespace Game_Logic_Class
                 {
                     Position = 0,
                     RocketFuel = Player.INITIAL_FUEL_AMOUNT,
-                    HasPower = false,
+                    HasPower = true,
                     AtFinish = false,
+                    Location = Board.StartSquare
                 });
             }
         }
@@ -71,11 +72,28 @@ namespace Game_Logic_Class
         public static void PlayOneRound()
         {
             // Creating a loop to loop through all of the players
+            // Checking to see if the player has fuel
+            // If the player has no fuel it will not play a round
             for (int i = 0; i < NumberOfPlayers; i++)
             {
-                Players[i].Play(die1, die2);
+                if (!Players[i].HasPower)
+                {
+                    break;
+                }
+                else
+                {
+                    Players[i].Play(die1, die2);
+                }
             }
-            
+
+            // This for loop checks to see when the game is finished
+            for (int i = 0; i < NumberOfPlayers; i++)
+            {
+                if (Players[i].AtFinish)
+                {
+                    gameFinish = true;
+                }
+            }
         }
 
     }//end SnakesAndLadders

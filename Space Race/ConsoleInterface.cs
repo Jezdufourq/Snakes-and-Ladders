@@ -46,28 +46,24 @@ namespace Space_Race
 
             // Setting the number of players
             SpaceRaceGame.SetUpPlayers();
-            //int numofPlayers = SpaceRaceGame.NumberOfPlayers;
 
-            //Console.WriteLine("{0}", SpaceRaceGame.Players[1].Position);
-            Console.WriteLine("{0}", Board.Squares[0]);
+            int roundNumber = 0;
+            while (!SpaceRaceGame.gameFinish)
+            {
+                RoundNumberPrint(roundNumber);
+                SpaceRaceGame.PlayOneRound();
+                DisplayPlayerRound();
+                PressEnter();
+                roundNumber++;
 
+            } // end game loop
 
-            // Completing the game loop until the game has finished
-            //int roundNumber = 0;
-            //while (!SpaceRaceGame.gameFinish)
-            //{
-            //    RoundNumberPrint(roundNumber);
-            //    SpaceRaceGame.PlayOneRound();
-            //    //DisplayPlayerRound();
-            //    Console.WriteLine("{ }", );
-            //    roundNumber++;
-                
-            //} // end game loop
+            // Displaying the end game message
+            DisplayEndGame();
 
-            // TODO: Need to determine if anyone has won the game
-
-            // TODO: Need to print the winner of the game to the console
-
+            // Wait for the user
+            PressEnter();
+               
             // TESTING FOR THE SET UP PLAYERS FUNCTION
             //int i = 0;
             //foreach (object a in SpaceRaceGame.Players)
@@ -80,10 +76,39 @@ namespace Space_Race
             //    Console.WriteLine("AtFinish: " + SpaceRaceGame.Players[i].AtFinish + Environment.NewLine + " ");
             //    i++;
             //}
+            //PressEnter();
 
-            PressEnter();
+            // TODO: Need to determine if anyone has won the game
+
+            // TODO: Need to print the winner of the game to the console
         }//end Main
 
+
+        /// <summary>
+        /// Display the information at the end of the game
+        /// Pre:    none
+        /// Post:   Displaying the information of the players to the console
+        /// </summary>
+        static void DisplayEndGame()
+        {
+            Console.WriteLine("The following player(s) finished the game");
+            for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
+            {
+                if (SpaceRaceGame.Players[i].AtFinish)
+                {
+                    Console.WriteLine("\t{0}", SpaceRaceGame.Players[i].Name);
+                }
+            }
+
+            Console.WriteLine("Indivisual players finished at the location specified.");
+            for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
+            {
+                Console.WriteLine("{0} with {1} yottawatt of power at square {2}",
+                    SpaceRaceGame.Players[i].Name, SpaceRaceGame.Players[i].RocketFuel,
+                    SpaceRaceGame.Players[i].Position);
+            }
+        }
+               
         /// <summary>
         /// Display the players details at end of round
         /// Pre:    none
@@ -91,7 +116,12 @@ namespace Space_Race
         /// </summary>
         static void DisplayPlayerRound()
         {
-            Console.WriteLine();
+            for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
+            {
+                Console.WriteLine("\t{0} on square {1} with {2} yottawatt of power remaining",
+                    SpaceRaceGame.Players[i].Name, SpaceRaceGame.Players[i].Position, 
+                    SpaceRaceGame.Players[i].RocketFuel);
+            }
         } //end DisplayPlayerRound
 
         /// <summary>
@@ -174,7 +204,7 @@ namespace Space_Race
         /// </summary>
         static void PressEnter()
         {
-            //Console.Write("\nPress Enter to terminate program ...");
+            Console.Write("\nPress Enter key to continue...");
             Console.ReadKey();
         } // end PressAny
 

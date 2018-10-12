@@ -144,64 +144,16 @@ namespace Object_Classes {
             // Updating position
             position += d1.Roll() + d2.Roll();
 
-
-
-            //if (position >= 56)
-            //{
-            //    position = Board.FINISH_SQUARE_NUMBER;
-            //}
-            //else
-            //{
-            //}
-            // Updating the location to the position
-
-            // Updating location
-
-
-            
+            if (position >= 56)
+            {
+                position = Board.FINISH_SQUARE_NUMBER;
+                atFinish = true;
+            }
 
             // Sorts the current position of the player into specific squares
             Board.Squares[position].LandOn(this);
 
-
-            // check if finished
-            if (Board.Squares[position].Name == "Finish")
-            {
-                
-            }
-
-
-            //if (Board.Squares[position].GetType() == typeof(BlackholeSquare))
-            //{
-            //    Black
-            //}
-            //else if (Board.Squares[position].GetType() == typeof(WormholeSquare))
-            //{
-            //    Board.Squares[position].LandOn(this);
-            //}
-
-            //else if (Board.Squares[position].GetType() == typeof(Square))
-            //{
-                
-            //}
-
-            //else if (Board.Squares[position].Name == "Finish")
-            //{
-
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Error: Error in Player class");
-            //}
-
-
-
-
-
-
             location = Board.Squares[position];
-
-
         } // end Play.
 
 
