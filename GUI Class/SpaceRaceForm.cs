@@ -1,10 +1,8 @@
 ﻿using System;
-//  Uncomment  this using statement after you have remove the large Block Comment below 
-//using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 using Game_Logic_Class;
-//  Uncomment  this using statement when you declare any object from Object Classes, eg Board,Square etc.
-//using Object_Classes;
+using Object_Classes;
 
 namespace GUI_Class
 {
@@ -44,17 +42,6 @@ namespace GUI_Class
             Environment.Exit(0);
         }
 
-
-
-        //  ******************* Uncomment - Remove Block Comment below
-        //                         once you've added the TableLayoutPanel to your form.
-        //
-        //       You will have to replace "tableLayoutPanel" by whatever (Name) you used.
-        //
-        //        Likewise with "playerDataGridView" by your DataGridView (Name)
-        //  ******************************************************************************************
-
-/*
         /// <summary>
         /// Resizes the entire form, so that the individual squares have their correct size, 
         /// as specified by SquareControl.SQUARE_SIZE.  
@@ -127,12 +114,11 @@ namespace GUI_Class
         private void SetupPlayersDataGridView()
         {
             // Stop the playersDataGridView from using all Player columns.
-            playersDataGridView.AutoGenerateColumns = false;
+            playerDataGridView.AutoGenerateColumns = false;
             // Tell the playersDataGridView what its real source of data is.
-            playersDataGridView.DataSource = SpaceRaceGame.Players;
+            playerDataGridView.DataSource = SpaceRaceGame.Players;
 
         }// end SetUpPlayersDataGridView
-*/
 
 
         /// <summary>
@@ -271,7 +257,7 @@ namespace GUI_Class
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void playerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -292,6 +278,21 @@ namespace GUI_Class
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void RollDiceButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GameResetButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }
