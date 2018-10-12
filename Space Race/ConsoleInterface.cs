@@ -91,22 +91,26 @@ namespace Space_Race
         /// </summary>
         static void DisplayEndGame()
         {
-            Console.WriteLine("The following player(s) finished the game");
+            Console.WriteLine("\tThe following player(s) finished the game");
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {
                 if (SpaceRaceGame.Players[i].AtFinish)
                 {
-                    Console.WriteLine("\t{0}", SpaceRaceGame.Players[i].Name);
+                    Console.WriteLine("\t\t{0}", SpaceRaceGame.Players[i].Name);
+                    Console.WriteLine();
                 }
             }
 
-            Console.WriteLine("Indivisual players finished at the location specified.");
+            Console.WriteLine("\tIndividual players finished at the location specified.");
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {
-                Console.WriteLine("{0} with {1} yottawatt of power at square {2}",
+                Console.WriteLine("\t\t{0} with {1} yottawatt of power at square {2}",
                     SpaceRaceGame.Players[i].Name, SpaceRaceGame.Players[i].RocketFuel,
                     SpaceRaceGame.Players[i].Position);
             }
+
+            Console.WriteLine();
+
         }
                
         /// <summary>
@@ -122,6 +126,9 @@ namespace Space_Race
                     SpaceRaceGame.Players[i].Name, SpaceRaceGame.Players[i].Position, 
                     SpaceRaceGame.Players[i].RocketFuel);
             }
+
+            Console.WriteLine();
+
         } //end DisplayPlayerRound
 
         /// <summary>
@@ -133,11 +140,14 @@ namespace Space_Race
         {
             if (roundNumber == 0)
             {
-                Console.WriteLine("First Round");
+                Console.WriteLine();
+                Console.WriteLine("\tFirst Round\n");
+                Console.WriteLine();
             }
             else
             {
-                Console.WriteLine("Next Round");
+                Console.WriteLine("\tNext Round\n");
+                Console.WriteLine();
             }
         } //end RoundNumberPrint
 
@@ -161,7 +171,7 @@ namespace Space_Race
         /// </summary>
         static void EnterRound()
         {
-            Console.WriteLine("Press Enter to play a round ... \n");
+            Console.WriteLine("Press Enter to play a round ... ");
             Console.ReadKey();
         }
         
@@ -204,8 +214,9 @@ namespace Space_Race
         /// </summary>
         static void PressEnter()
         {
-            Console.Write("\nPress Enter key to continue...");
+            Console.WriteLine("Press Enter key to continue...\n");
             Console.ReadKey();
+            
         } // end PressAny
 
     }//end Console class
