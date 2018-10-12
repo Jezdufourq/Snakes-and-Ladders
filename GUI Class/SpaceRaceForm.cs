@@ -266,5 +266,34 @@ namespace GUI_Class
             RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
         } //end UpdatePlayersGuiLocations
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Players_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NumberOfPlayersLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }// end class
 }
