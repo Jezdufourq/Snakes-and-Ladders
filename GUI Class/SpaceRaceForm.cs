@@ -322,6 +322,19 @@ namespace GUI_Class
             //          the ContainsPlayers array of the SquareControl object.
             //          
 
+            for (int index = 0; index < SpaceRacegame.NumberOfPlayers; index++)
+            {
+                int squareNum = SpaceRaceGame.Players[index].Number;
+                SquareControlAt(squareNum);
+
+
+
+
+            }
+
+
+
+
             RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
         } //end UpdatePlayersGuiLocations
 
