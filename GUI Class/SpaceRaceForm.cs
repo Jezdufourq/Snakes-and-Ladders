@@ -101,13 +101,86 @@ namespace GUI_Class
         /// <param name="columnNumber">The output column number.</param>
         private static void MapSquareNumToScreenRowAndColumn(int squareNum, out int screenRow, out int screenCol)
         {
-            // Code needs to be added here to do the mapping
+            int colCheck = squareNum % 16;
+            switch (colCheck)
+            {
+                case 0:
+                case 15:
+                    screenCol = 0;
+                    break;
 
+                case 1:
+                case 14:
+                    screenCol = 1;
+                    break;
+
+                case 2:
+                case 13:
+                    screenCol = 2;
+                    break;
+                
+                case 3:
+                case 12:
+                    screenCol = 3;
+                    break;
+
+                case 4:
+                case 11:
+                    screenCol = 4;
+                    break;
+
+                case 5:
+                case 10:
+                    screenCol = 5;
+                    break;
+
+                case 6:
+                case 9:
+                    screenCol = 6;
+                    break;
+
+                case 7:
+                case 8:
+                    screenCol = 7;
+                    break;
+
+            }
+
+            int rowCheck = squareNum / 8;
+            switch (rowCheck)
+            {
+                case 0:
+                    screenRow = 6;
+                    break;
+
+                case 1:
+                    screenRow = 5;
+                    break;
+
+                case 2:
+                    screenRow = 4;
+                    break;
+
+                case 3:
+                    screenRow = 3;
+                    break;
+
+                case 4:
+                    screenRow = 2;
+                    break;
+
+                case 5:
+                    screenRow = 1;
+                    break;
+
+                case 6:
+                    screenRow = 0;
+                    break;
+            }
             // Makes the compiler happy - these two lines below need to deleted 
             //    once mapping code is written above
             screenRow = 0;
             screenCol = 0;
-
         }//end MapSquareNumToScreenRowAndColumn
 
 

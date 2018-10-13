@@ -105,21 +105,24 @@ namespace Object_Classes {
                     if (currentsquare == blackHoles[index, 0])
                     {
                         string squareName = currentsquare.ToString();
+                        string name = currentsquare.ToString();
                         FindDestSquare(blackHoles, currentsquare, out destNum, out amount);
-                        squares[currentsquare] = new BlackholeSquare("blackHole", currentsquare, destNum, amount);
+                        squares[currentsquare] = new BlackholeSquare(name, currentsquare, destNum, amount);
                         break;
                     }
                     else if (currentsquare == wormHoles[index, 0])
                     {
                         string squareName = currentsquare.ToString();
+                        string name = currentsquare.ToString();
                         FindDestSquare(wormHoles, currentsquare, out destNum, out amount);
-                        squares[currentsquare] = new WormholeSquare("wormHole", currentsquare, destNum, amount);
+                        squares[currentsquare] = new WormholeSquare(name, currentsquare, destNum, amount);
                         break;
                     }
                     else if (currentsquare != wormHoles[index, 0] || currentsquare != blackHoles[index, 0])
                     {
                         string squareName = currentsquare.ToString();
-                        squares[currentsquare] = new Square("regularSquare", currentsquare);
+                        string name = currentsquare.ToString();
+                        squares[currentsquare] = new Square(name, currentsquare);
                     }
                 }
             }
