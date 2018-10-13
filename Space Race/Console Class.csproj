@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Space_Race.Console_Class</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Game Logic Class">
       <HintPath>..\Game Logic Class\bin\Debug\Game Logic Class.dll</HintPath>
@@ -41,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

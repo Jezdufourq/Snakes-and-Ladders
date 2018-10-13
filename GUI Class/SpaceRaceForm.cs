@@ -25,9 +25,9 @@ namespace GUI_Class
             Board.SetUpBoard();
             ResizeGUIGameBoard();
             SetUpGUIGameBoard();
-            // SetUpPlayersDataGridView
-            // DetermineNumberOfPlayers();
-            // SpaceRaceGame.SetUpPlayers();
+            SetupPlayersDataGridView();
+            DetermineNumberOfPlayers();
+            SpaceRaceGame.SetUpPlayers();
             // PrepareToPlayGame();
         }
 
@@ -203,11 +203,14 @@ namespace GUI_Class
         /// </summary>
         private void DetermineNumberOfPlayers()
         {
-            // Store the SelectedItem property of the ComboBox in a string
+            // Store the SelectedItem property of the ComboBox in a string           
+            string NumberOfPlayersString = NumberOfPlayersBox.GetItemText(NumberOfPlayersBox.SelectedItem);
 
             // Parse string to a number
+            int NumberOfPlayersInt = Convert.ToInt32(NumberOfPlayersString);
 
             // Set the NumberOfPlayers in the SpaceRaceGame class to that number
+            SpaceRaceGame.NumberOfPlayers = NumberOfPlayersInt;
 
         }//end DetermineNumberOfPlayers
 
@@ -277,7 +280,7 @@ namespace GUI_Class
         private void RefreshBoardTablePanelLayout()
         {
             // Uncomment the following line once you've added the tableLayoutPanel to your form.
-            //      tableLayoutPanel.Invalidate(true);
+            tableLayoutPanel.Invalidate(true);
         }
 
         /// <summary>

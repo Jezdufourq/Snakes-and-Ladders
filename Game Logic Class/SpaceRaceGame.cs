@@ -59,7 +59,8 @@ namespace Game_Logic_Class
                     RocketFuel = Player.INITIAL_FUEL_AMOUNT,
                     HasPower = true,
                     AtFinish = false,
-                    Location = Board.StartSquare
+                    Location = Board.StartSquare,
+                    PlayerTokenColour = playerTokenColours[i]
                 });
             }
         }
