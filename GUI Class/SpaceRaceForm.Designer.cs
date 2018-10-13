@@ -110,6 +110,7 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(884, 814);
             this.tableLayoutPanel.TabIndex = 0;
+            this.tableLayoutPanel.Tag = "";
             this.tableLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel_Paint);
             // 
             // GameResetButton

@@ -22,9 +22,9 @@ namespace GUI_Class
         {
             InitializeComponent();
 
-            // Board.SetUpBoard();
-            // ResizeGUIGameBoard();
-            // SetUpGUIGameBoard();
+            Board.SetUpBoard();
+            ResizeGUIGameBoard();
+            SetUpGUIGameBoard();
             // SetUpPlayersDataGridView
             // DetermineNumberOfPlayers();
             // SpaceRaceGame.SetUpPlayers();
