@@ -102,6 +102,10 @@ namespace GUI_Class
         private static void MapSquareNumToScreenRowAndColumn(int squareNum, out int screenRow, out int screenCol)
         {
             int colCheck = squareNum % 16;
+
+            screenCol = 0;
+            screenRow = 0;
+
             switch (colCheck)
             {
                 case 0:
@@ -177,10 +181,6 @@ namespace GUI_Class
                     screenRow = 0;
                     break;
             }
-            // Makes the compiler happy - these two lines below need to deleted 
-            //    once mapping code is written above
-            screenRow = 0;
-            screenCol = 0;
         }//end MapSquareNumToScreenRowAndColumn
 
 
@@ -242,11 +242,8 @@ namespace GUI_Class
             int screenRow;
             int screenCol;
 
-            // Uncomment the following lines once you've added the tableLayoutPanel to your form. 
-            //     and delete the "return null;" 
-            //
-            // MapSquareNumToScreenRowAndColumn(squareNum, out screenRow, out screenCol);
-            // return (SquareControl)tableLayoutPanel.GetControlFromPosition(screenCol, screenRow);
+            MapSquareNumToScreenRowAndColumn(squareNum, out screenRow, out screenCol);
+            return (SquareControl)tableLayoutPanel.GetControlFromPosition(screenCol, screenRow);
 
             return null; //added so code compiles
         }
