@@ -248,7 +248,6 @@ namespace GUI_Class
             MapSquareNumToScreenRowAndColumn(squareNum, out screenRow, out screenCol);
             return (SquareControl)tableLayoutPanel.GetControlFromPosition(screenCol, screenRow);
 
-            return null; //added so code compiles
         }
 
 
@@ -322,14 +321,10 @@ namespace GUI_Class
             //          the ContainsPlayers array of the SquareControl object.
             //          
 
-            for (int index = 0; index < SpaceRacegame.NumberOfPlayers; index++)
+            for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
             {
-                int squareNum = SpaceRaceGame.Players[index].Number;
-                SquareControlAt(squareNum);
-
-
-
-
+                // int squareNum = SpaceRaceGame.Players[index].Number;
+                //SquareControlAt(squareNum);
             }
 
 
