@@ -24,7 +24,7 @@ namespace GUI_Class
 
             Board.SetUpBoard();
             ResizeGUIGameBoard();
-            SetUpGUIGameBoard();
+            SetUpGUIGameBoard();   
             SetupPlayersDataGridView();
             DetermineNumberOfPlayers();
             SpaceRaceGame.SetUpPlayers();
@@ -260,10 +260,8 @@ namespace GUI_Class
         /// <returns>Returns the square number of the player.</returns>
         private int GetSquareNumberOfPlayer(int playerNumber)
         {
-            // Code needs to be added here.
-
-            //     delete the "return -1;" once body of method has been written 
-            return -1;
+            // Returns the square number of the player
+            return SpaceRaceGame.Players[playerNumber].Position;
         }//end GetSquareNumberOfPlayer
 
 
@@ -307,7 +305,7 @@ namespace GUI_Class
         /// In between those two calls, the players locations must be changed. 
         /// Otherwise, you won't see any change on the screen.
         /// 
-        /// Pre:  the Players objects in the SpaceRaceGame have each players' current locations
+        /// Pre:  the Players objects in the SpaceRaceGame have each players current locations
         /// Post: the GUI board is updated to match 
         /// </summary>
         private void UpdatePlayersGuiLocations(TypeOfGuiUpdate typeOfGuiUpdate)
@@ -323,12 +321,21 @@ namespace GUI_Class
 
             for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
             {
-                // int squareNum = SpaceRaceGame.Players[index].Number;
-                //SquareControlAt(squareNum);
+                // Determining the square number of the player
+                int squareNum = GetSquareNumberOfPlayer(index);
+
+                object retrievedObject = SquareControlAt(squareNum);
+
+                // Retrieving the SquareControl object
+                if (typeOfGuiUpdate == TypeOfGuiUpdate.AddPlayer)
+                {
+                    
+                }
+                if (typeOfGuiUpdate == TypeOfGuiUpdate.RemovePlayer)
+                {
+
+                }
             }
-
-
-
 
             RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
         } //end UpdatePlayersGuiLocations
