@@ -31,7 +31,7 @@ namespace Space_Race
              Determine if anyone has won
              Output each player's details at end of the game
            */
-            DisplayIntroductionMessage();
+            DisplayIntroductionMessage();    
 
             while (!numberOfPlayersInput())
             {
@@ -47,6 +47,8 @@ namespace Space_Race
             // Setting the number of players
             SpaceRaceGame.SetUpPlayers();
 
+            playerInformation();
+
             int roundNumber = 0;
             while (!SpaceRaceGame.gameFinish)
             {
@@ -55,7 +57,6 @@ namespace Space_Race
                 DisplayPlayerRound();
                 PressEnter();
                 roundNumber++;
-
             } // end game loop
 
             // Displaying the end game message
@@ -82,6 +83,27 @@ namespace Space_Race
 
             // TODO: Need to print the winner of the game to the console
         }//end Main
+
+
+        /// <summary>
+        /// Printing the player information for debugging
+        ///       
+        /// </summary>
+        static void playerInformation()
+        {
+
+            int i = 0;
+            foreach (object a in SpaceRaceGame.Players)
+            {
+                Console.WriteLine("Location: " + SpaceRaceGame.Players[i].Location);
+                Console.WriteLine("Name: " + SpaceRaceGame.Players[i].Name);
+                Console.WriteLine("HasPower: " + SpaceRaceGame.Players[i].HasPower);
+                Console.WriteLine("Position: " + SpaceRaceGame.Players[i].Position);
+                Console.WriteLine("RocketFuel: " + SpaceRaceGame.Players[i].RocketFuel);
+                Console.WriteLine("AtFinish: " + SpaceRaceGame.Players[i].AtFinish + Environment.NewLine + " ");
+                i++;
+            }
+        }
 
 
         /// <summary>

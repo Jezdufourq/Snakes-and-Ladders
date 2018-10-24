@@ -217,7 +217,7 @@ namespace GUI_Class
         /// <summary>
         /// The players' tokens are placed on the Start square
         /// </summary>
-        private void PrepareToPlayGame()
+        private void PrepareToPlay()
         {
             // More code will be needed here to deal with restarting 
             // a game after the Reset button has been clicked. 
@@ -229,7 +229,7 @@ namespace GUI_Class
 
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
 
-        }//end PrepareToPlayGame()
+        }//end PrepareToPlay()
 
 
         /// <summary>
@@ -317,33 +317,33 @@ namespace GUI_Class
             //       retrieve the SquareControl object with that square number
             //       using the typeOfGuiUpdate, update the appropriate element of 
             //          the ContainsPlayers array of the SquareControl object.
-            //   
-            
-            // Completed this section
+            //          
+
             for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
             {
                 // Determining the square number of the player
                 int squareNum = GetSquareNumberOfPlayer(index);
 
-                SquareControl squareControl = SquareControlAt(squareNum);
+                object retrievedObject = SquareControlAt(squareNum);
 
                 // Retrieving the SquareControl object
                 if (typeOfGuiUpdate == TypeOfGuiUpdate.AddPlayer)
                 {
-                    squareControl.ContainsPlayers[index] = true; 
+                    
                 }
                 if (typeOfGuiUpdate == TypeOfGuiUpdate.RemovePlayer)
                 {
-                    squareControl.ContainsPlayers[index] = false;
+
                 }
             }
+
             RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
         } //end UpdatePlayersGuiLocations
 
         private void label1_Click(object sender, EventArgs e)
         {
 
-        } 
+        }
 
         private void playerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

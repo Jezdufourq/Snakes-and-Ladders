@@ -13,6 +13,7 @@ namespace Game_Logic_Class
 
         // This variable determines if the game has finished or not
         public static bool gameFinish = false;
+        public static bool roundFinish = false;
 
         private static int numberOfPlayers = 2;  //default value for test purposes only 
         public static int NumberOfPlayers
@@ -65,13 +66,14 @@ namespace Game_Logic_Class
             }
         }
 
-        
-
         /// <summary>
         ///  Plays one round of a game
         /// </summary>
         public static void PlayOneRound()
         {
+            bool[] playerHasPower = new bool[NumberOfPlayers];
+            int check = 0;
+
             // Creating a loop to loop through all of the players
             // Checking to see if the player has fuel
             // If the player has no fuel it will not play a round
@@ -95,6 +97,21 @@ namespace Game_Logic_Class
                     gameFinish = true;
                 }
             }
+
+            //// Creating an array of boolean variables
+            //for (int ii = 0; ii < NumberOfPlayers; ii++)
+            //{
+            //    playerHasPower[ii] = Players[ii].HasPower;
+            //    if (!playerHasPower[ii])
+            //    {
+            //        check++;
+            //        continue;
+            //    }
+            //}
+            //if (check == NumberOfPlayers)
+            //{
+            //    gameFinish = true;
+            //}
         }
 
     }//end SnakesAndLadders

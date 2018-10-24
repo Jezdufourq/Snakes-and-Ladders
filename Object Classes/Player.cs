@@ -157,9 +157,6 @@ namespace Object_Classes {
         } // end Play.
 
 
-
-
-
         // <summary>
         /// Consumes specified amount of fuel.
         /// 
