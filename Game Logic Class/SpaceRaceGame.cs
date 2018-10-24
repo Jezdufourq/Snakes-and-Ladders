@@ -13,6 +13,7 @@ namespace Game_Logic_Class
 
         // This variable determines if the game has finished or not
         public static bool gameFinish = false;
+        public static bool roundFinish = false;
 
         private static int numberOfPlayers = 2;  //default value for test purposes only 
         public static int NumberOfPlayers
@@ -65,8 +66,6 @@ namespace Game_Logic_Class
             }
         }
 
-        
-
         /// <summary>
         ///  Plays one round of a game
         /// </summary>
@@ -93,6 +92,10 @@ namespace Game_Logic_Class
                 if (Players[i].AtFinish)
                 {
                     gameFinish = true;
+                }
+                else if (Players[])
+                {
+                    
                 }
             }
         }

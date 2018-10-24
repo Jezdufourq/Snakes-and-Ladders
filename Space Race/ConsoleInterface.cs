@@ -31,7 +31,7 @@ namespace Space_Race
              Determine if anyone has won
              Output each player's details at end of the game
            */
-            DisplayIntroductionMessage();
+            DisplayIntroductionMessage();    
 
             while (!numberOfPlayersInput())
             {
@@ -52,6 +52,7 @@ namespace Space_Race
             {
                 RoundNumberPrint(roundNumber);
                 SpaceRaceGame.PlayOneRound();
+                Console.WriteLine("0", SpaceRaceGame.gameFinish);
                 DisplayPlayerRound();
                 PressEnter();
                 roundNumber++;
