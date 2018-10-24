@@ -54,6 +54,7 @@ namespace Space_Race
             {
                 RoundNumberPrint(roundNumber);
                 SpaceRaceGame.PlayOneRound();
+                Console.WriteLine("0", SpaceRaceGame.gameFinish);
                 DisplayPlayerRound();
                 PressEnter();
                 roundNumber++;

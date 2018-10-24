@@ -96,6 +96,10 @@ namespace Game_Logic_Class
                 {
                     gameFinish = true;
                 }
+                else if (Players[])
+                {
+                    
+                }
             }
 
             //// Creating an array of boolean variables
