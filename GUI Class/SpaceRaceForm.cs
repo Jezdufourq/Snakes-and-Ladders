@@ -351,15 +351,7 @@ namespace GUI_Class
 
         private void playerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (SpaceRaceGame.resetRound)
-            {
-                playerDataGridView.Enabled = false;
-            }
-
-            else if (!SpaceRaceGame.resetRound)
-            {
-                playerDataGridView.Enabled = true;
-            }
+       
         }
 
         private void Players_Click(object sender, EventArgs e)
@@ -375,6 +367,23 @@ namespace GUI_Class
 
         private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int i = 0;
+            try
+            {
+                i = Convert.ToInt32(NumberOfPlayersBox.SelectedText);
+                SpaceRaceGame.NumberOfPlayers = i;
+            }
+            catch (FormatException)
+            {
+                // the FormatException is thrown when the string text does 
+                // not represent a valid integer.
+            }
+            catch (OverflowException)
+            {
+                // the OverflowException is thrown when the string is a valid integer, 
+                // but is too large for a 32 bit integer.  Use Convert.ToInt64 in
+                // this case.
+            }
 
         }
 
