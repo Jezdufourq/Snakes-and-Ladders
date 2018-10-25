@@ -2,7 +2,7 @@
 
 namespace Object_Classes {
     /// <summary>
-    /// A Ordinary square, the Start nd Finish squares as well as being the parent (superclass)
+    /// A Ordinary square, the Start and Finish squares as well as being the parent (superclass)
     ///  for a Blackhole Square and a Wormhole Square
     /// </summary>
     public class Square  {
@@ -30,7 +30,6 @@ namespace Object_Classes {
             return null;
         }
          
-
         /// <summary>
         /// Parameterless constructor.
         /// Do not want the generic default constructor to be used
@@ -90,8 +89,5 @@ namespace Object_Classes {
             // check whether the location is the 'start' square.
             return (Number == Board.START_SQUARE_NUMBER);
         }
-
-
-
     }// end Square
 }

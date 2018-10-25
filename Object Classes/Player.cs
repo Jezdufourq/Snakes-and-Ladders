@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Diagnostics;
 
+
 namespace Object_Classes {
     /// <summary>
     /// A player who is currently located  on a particular square 
@@ -137,9 +138,22 @@ namespace Object_Classes {
         /// <param name="d2">second die</param>
         public void Play(Die d1, Die d2) {
 
-            //  CODE NEEDS TO BE ADDED HERE
+            // roll dice, update position/location/, check if they've reached/passed the finish square,
+            // check if its a worm/blackholefuel, update position/location if its worm/blackhole
 
+            // Updating position
+            position += d1.Roll() + d2.Roll();
 
+            if (position >= 56)
+            {
+                position = Board.FINISH_SQUARE_NUMBER;
+                atFinish = true;
+            }
+
+            // Sorts the current position of the player into specific squares
+            Board.Squares[position].LandOn(this);
+
+            location = Board.Squares[position];
         } // end Play.
 
 
@@ -166,6 +180,7 @@ namespace Object_Classes {
         /// </summary>
         /// <returns>true if reached the Final Square</returns>
         private bool ReachedFinalSquare() {
+            // Checking to see if the player has rolled over it
 
             if (position == Board.FINISH_SQUARE_NUMBER)
             {
@@ -173,7 +188,7 @@ namespace Object_Classes {
             }
             else
             {
-                return false;            
+                return false;
             }
         } //end ReachedFinalSquare
 

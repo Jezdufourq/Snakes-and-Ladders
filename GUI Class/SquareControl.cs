@@ -8,7 +8,8 @@ using Game_Logic_Class;
 namespace GUI_Class
 {
 
-    public partial class SquareControl : PictureBox {
+    public partial class SquareControl : PictureBox
+    {
 
         private Square square;  // A reference to the corresponding square object, in the Object Classes.
 
@@ -44,7 +45,7 @@ namespace GUI_Class
             BorderStyle = BorderStyle.FixedSingle;
             BackColor = Color.SlateGray;
 
-            //SetSquareImage();
+            SetSquareImage();
         }
 
         private void SetSquareImage() {

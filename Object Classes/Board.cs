@@ -92,30 +92,37 @@ namespace Object_Classes {
         /// Post: board is constructed
         /// </summary>
         public static void SetUpBoard() {
-
+            
             // Create the 'start' square where all players will start.
             squares[START_SQUARE_NUMBER] = new Square("Start", START_SQUARE_NUMBER);
-
-            for (int i = 1; i <= 54; i++)
+            int destNum = 0;
+            int amount = 0;
+            
+            for (int currentsquare = START_SQUARE_NUMBER + 1 ; currentsquare < FINISH_SQUARE_NUMBER ; currentsquare++)
             {
-                for (int j = 0; j <= 7; j++)
+                for (int index = 0; index <= 7; index++)
                 {
-                    if (i == blackHoles[j, 0])
+                    if (currentsquare == blackHoles[index, 0])
                     {
-                        string squareName = i.ToString();
-                        squares[i] = new BlackholeSquare("blackHole" + squareName, i + 1, blackHoles[j, 1], blackHoles[j, 2]);
+                        string squareName = currentsquare.ToString();
+                        string name = currentsquare.ToString();
+                        FindDestSquare(blackHoles, currentsquare, out destNum, out amount);
+                        squares[currentsquare] = new BlackholeSquare(name, currentsquare, destNum, amount);
                         break;
                     }
-                    else if (i == wormHoles[j, 0])
+                    else if (currentsquare == wormHoles[index, 0])
                     {
-                        string squareName = i.ToString();
-                        squares[i] = new WormholeSquare("wormHole" + squareName, i + 1, wormHoles[j, 1], wormHoles[j, 2]);
+                        string squareName = currentsquare.ToString();
+                        string name = currentsquare.ToString();
+                        FindDestSquare(wormHoles, currentsquare, out destNum, out amount);
+                        squares[currentsquare] = new WormholeSquare(name, currentsquare, destNum, amount);
                         break;
                     }
-                    else if (i != wormHoles[j, 0] || i != blackHoles[j, 0])
+                    else if (currentsquare != wormHoles[index, 0] || currentsquare != blackHoles[index, 0])
                     {
-                        string squareName = i.ToString();
-                        squares[i] = new Square("regularHole" + squareName, i + 1);
+                        string squareName = currentsquare.ToString();
+                        string name = currentsquare.ToString();
+                        squares[currentsquare] = new Square(name, currentsquare);
                     }
                 }
             }
@@ -133,13 +140,22 @@ namespace Object_Classes {
         /// <param name="squareNum"> a square number of either a Wormhole or Blackhole square</param>
         /// <param name="destNum"> destination square's number</param>
         /// <param name="amount"> amont of fuel used to jump to the deestination square</param>
-        private static void FindDestSquare(int[,] holes, int squareNum, out int destNum, out int amount) {
+        private static void FindDestSquare(int[,] holes, int squareNum, out int destNum, out int amount)
+        {
             const int start = 0, exit = 1, fuel = 2;
             destNum = 0; amount = 0;
 
-            //  CODE NEEDS TO BE ADDED HERE 
-
-        } //end FindDestSquare
+            // Use squareNum to find which information inside "holes" we need to use
+            // Use the other details [number, dest] and [number, fuel] to find the final location
+            for (int index = 0; index <= 7; index++)
+            {
+                if (holes[index, start] == squareNum)
+                {
+                    destNum = holes[index, exit];
+                    amount = holes[index, fuel];
+                }
+            }
+        } // end FindDestSquare
 
     } //end class Board
 }
