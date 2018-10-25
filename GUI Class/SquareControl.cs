@@ -17,8 +17,10 @@ namespace GUI_Class
 
         // the players on the corresponding square, initially no one is on 
         private bool[] containsPlayers = new bool[SpaceRaceGame.MAX_PLAYERS];
-        public bool[] ContainsPlayers {
-            get {
+        public bool[] ContainsPlayers
+        {
+            get
+            {
                 return containsPlayers;
             }
             set
@@ -33,7 +35,8 @@ namespace GUI_Class
         private Font textFont = new Font("Microsoft Sans Serif", 8);
         private Brush textBrush = Brushes.White;
 
-        public SquareControl(Square square, BindingList<Player> players) {
+        public SquareControl(Square square, BindingList<Player> players)
+        {
 
             this.square = square;
             this.players = players;
@@ -48,37 +51,48 @@ namespace GUI_Class
             SetSquareImage();
         }
 
-        private void SetSquareImage() {
+        private void SetSquareImage()
+        {
 
-            if (square is WormholeSquare) {
+            if (square is WormholeSquare)
+            {
                 LoadImageFromFile("Wormhole entry.png");
                 textBrush = Brushes.Red;
-            } else if (square is BlackholeSquare) {
+            }
+            else if (square is BlackholeSquare)
+            {
                 LoadImageFromFile("Going down.png");
                 textBrush = Brushes.Red;
-            } else if (square.Name == "Finish") {
+            }
+            else if (square.Name == "Finish")
+            {
                 LoadImageFromFile("Landing.png");
                 textBrush = Brushes.Black;
                 textFont = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
-            } else  if (square.Name == "Start")
+            }
+            else if (square.Name == "Start")
             {
                 LoadImageFromFile("blast-off-rocket.png");
                 textBrush = Brushes.Black;
                 textFont = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
-            } else { //Ordinary Square
+            }
+            else
+            { //Ordinary Square
                 LoadImageFromFile("Space.png");
             }
         }
 
-        private void LoadImageFromFile(string fileName) {
+        private void LoadImageFromFile(string fileName)
+        {
 
             Image image = Image.FromFile(@"Images\" + fileName);
             Image = image;
             SizeMode = PictureBoxSizeMode.StretchImage;  // Zoom is also ok.
-            
+
         }
 
-        protected override void OnPaint(PaintEventArgs e) {
+        protected override void OnPaint(PaintEventArgs e)
+        {
 
             //  Due to a limitation in WinForms, don't use base.OnPaint(e) here.
 
@@ -103,12 +117,14 @@ namespace GUI_Class
 
 
             //  Draw player tokens (when any players are on this square).
-           const int PLAYER_TOKENS_PER_ROW = 3;
-           const int PLAYER_TOKEN_SIZE = 20;  // pixels.
+            const int PLAYER_TOKENS_PER_ROW = 3;
+            const int PLAYER_TOKEN_SIZE = 20;  // pixels.
             const int PLAYER_TOKEN_SPACING = 8;// (SQUARE_SIZE - (PLAYER_TOKEN_SIZE * PLAYER_TOKENS_PER_ROW)) / (PLAYER_TOKENS_PER_ROW - 1);
 
-            for (int i = 0; i < containsPlayers.Length; i++) {
-                if (containsPlayers[i]) {
+            for (int i = 0; i < containsPlayers.Length; i++)
+            {
+                if (containsPlayers[i])
+                {
                     int xPosition = i % PLAYER_TOKENS_PER_ROW;
                     int yPosition = i / PLAYER_TOKENS_PER_ROW;
                     int xPixels = xPosition * (PLAYER_TOKEN_SIZE + PLAYER_TOKEN_SPACING);

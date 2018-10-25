@@ -72,7 +72,6 @@ namespace Game_Logic_Class
         public static void PlayOneRound()
         {
             bool[] playerHasPower = new bool[NumberOfPlayers];
-            int check = 0;
 
             // Creating a loop to loop through all of the players
             // Checking to see if the player has fuel

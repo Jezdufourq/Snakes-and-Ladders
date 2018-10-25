@@ -1,7 +1,9 @@
 ﻿using System;
+//  Uncomment  this using statement after you have remove the large Block Comment below 
 using System.Drawing;
 using System.Windows.Forms;
 using Game_Logic_Class;
+//  Uncomment  this using statement when you declare any object from Object Classes, eg Board,Square etc.
 using Object_Classes;
 
 namespace GUI_Class
@@ -24,7 +26,7 @@ namespace GUI_Class
 
             Board.SetUpBoard();
             ResizeGUIGameBoard();
-            SetUpGUIGameBoard();   
+            SetUpGUIGameBoard();
             SetupPlayersDataGridView();
             DetermineNumberOfPlayers();
             SpaceRaceGame.SetUpPlayers();
@@ -41,6 +43,7 @@ namespace GUI_Class
         {
             Environment.Exit(0);
         }
+
 
         /// <summary>
         /// Resizes the entire form, so that the individual squares have their correct size, 
@@ -122,7 +125,7 @@ namespace GUI_Class
                 case 13:
                     screenCol = 2;
                     break;
-                
+
                 case 3:
                 case 12:
                     screenCol = 3;
@@ -181,6 +184,7 @@ namespace GUI_Class
                     screenRow = 0;
                     break;
             }
+
         }//end MapSquareNumToScreenRowAndColumn
 
 
@@ -217,7 +221,7 @@ namespace GUI_Class
         /// <summary>
         /// The players' tokens are placed on the Start square
         /// </summary>
-        private void PrepareToPlayGame()
+        private void PrepareToPlay()
         {
             // More code will be needed here to deal with restarting 
             // a game after the Reset button has been clicked. 
@@ -229,7 +233,7 @@ namespace GUI_Class
 
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
 
-        }//end PrepareToPlayGame()
+        }//end PrepareToPlay()
 
 
         /// <summary>
@@ -247,7 +251,6 @@ namespace GUI_Class
 
             MapSquareNumToScreenRowAndColumn(squareNum, out screenRow, out screenCol);
             return (SquareControl)tableLayoutPanel.GetControlFromPosition(screenCol, screenRow);
-
         }
 
 
@@ -318,7 +321,7 @@ namespace GUI_Class
             //       using the typeOfGuiUpdate, update the appropriate element of 
             //          the ContainsPlayers array of the SquareControl object.
             //   
-            
+
             // Completed this section
             for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
             {
@@ -330,20 +333,22 @@ namespace GUI_Class
                 // Retrieving the SquareControl object
                 if (typeOfGuiUpdate == TypeOfGuiUpdate.AddPlayer)
                 {
-                    squareControl.ContainsPlayers[index] = true; 
+                    squareControl.ContainsPlayers[index] = true;
                 }
                 if (typeOfGuiUpdate == TypeOfGuiUpdate.RemovePlayer)
                 {
                     squareControl.ContainsPlayers[index] = false;
                 }
             }
+
+
             RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
         } //end UpdatePlayersGuiLocations
 
         private void label1_Click(object sender, EventArgs e)
         {
 
-        } 
+        }
 
         private void playerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -359,6 +364,8 @@ namespace GUI_Class
         {
 
         }
+
+
 
         private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -384,5 +391,6 @@ namespace GUI_Class
         {
 
         }
+
     }// end class
 }
