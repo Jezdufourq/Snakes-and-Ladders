@@ -30,7 +30,7 @@ namespace GUI_Class
             SetupPlayersDataGridView();
             DetermineNumberOfPlayers();
             SpaceRaceGame.SetUpPlayers();
-            // PrepareToPlayGame();
+            PrepareToPlay();
         }
 
 
@@ -41,6 +41,14 @@ namespace GUI_Class
         /// </summary>
         private void exitButton_Click(object sender, EventArgs e)
         {
+            // The exit button is enabled at the start of the game
+            // The exit button is disabled during any round
+            // The exit button is enabled after each round
+            if (SpaceRaceGame.resetRound)
+            {
+                exitButton.Enabled = true;
+            }
+
             Environment.Exit(0);
         }
 
@@ -313,15 +321,6 @@ namespace GUI_Class
         /// </summary>
         private void UpdatePlayersGuiLocations(TypeOfGuiUpdate typeOfGuiUpdate)
         {
-            // Code needs to be added here which does the following:
-            //
-            //   for each player
-            //       determine the square number of the player
-            //       retrieve the SquareControl object with that square number
-            //       using the typeOfGuiUpdate, update the appropriate element of 
-            //          the ContainsPlayers array of the SquareControl object.
-            //   
-
             // Completed this section
             for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
             {
@@ -352,7 +351,15 @@ namespace GUI_Class
 
         private void playerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (SpaceRaceGame.resetRound)
+            {
+                playerDataGridView.Enabled = false;
+            }
 
+            else if (!SpaceRaceGame.resetRound)
+            {
+                playerDataGridView.Enabled = true;
+            }
         }
 
         private void Players_Click(object sender, EventArgs e)
@@ -364,7 +371,6 @@ namespace GUI_Class
         {
 
         }
-
 
 
         private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -379,12 +385,37 @@ namespace GUI_Class
 
         private void RollDiceButton_Click(object sender, EventArgs e)
         {
+            // Creating an event handler which will play a round
+            // Call UpdatePlayersGuiLocations
+            // PlayOneRound of SpaceRaceGame
+            // UpdatePlayersGuiLocations
+            //UpdatePlayersDataGridView
 
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
+            SpaceRaceGame.PlayOneRound();
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
+            UpdatesPlayersDataGridView();
+
+            if (SpaceRaceGame.resetRound)
+            {
+                GameResetButton.Enabled = true;
+            }
         }
 
         private void GameResetButton_Click(object sender, EventArgs e)
         {
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);     
+            SpaceRaceGame.resetGame();
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
+            UpdatesPlayersDataGridView();
 
+
+            if (!SpaceRaceGame.resetRound)
+            {
+                GameResetButton.Enabled = false;
+            }
+
+            SpaceRaceGame.resetRound = false;
         }
 
         private void tableLayoutPanel_Paint(object sender, PaintEventArgs e)

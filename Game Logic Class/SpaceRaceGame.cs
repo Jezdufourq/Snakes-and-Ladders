@@ -14,6 +14,7 @@ namespace Game_Logic_Class
         // This variable determines if the game has finished or not
         public static bool gameFinish = false;
         public static bool roundFinish = false;
+        public static bool resetRound = false;
 
         private static int numberOfPlayers = 2;  //default value for test purposes only 
         public static int NumberOfPlayers
@@ -73,6 +74,7 @@ namespace Game_Logic_Class
         {
             bool[] playerHasPower = new bool[NumberOfPlayers];
 
+            resetRound = true;
             // Creating a loop to loop through all of the players
             // Checking to see if the player has fuel
             // If the player has no fuel it will not play a round
@@ -111,6 +113,25 @@ namespace Game_Logic_Class
             //{
             //    gameFinish = true;
             //}
+        }
+
+        public static void resetGame()
+        {
+
+
+
+            for (int i = 0; i < NumberOfPlayers; i++)
+            {
+
+                Players[i].Position = 0;
+                Players[i].RocketFuel = Player.INITIAL_FUEL_AMOUNT;
+                Players[i].HasPower = true;
+                Players[i].AtFinish = false;
+                Players[i].Location = Board.StartSquare;
+                Players[i].PlayerTokenColour = playerTokenColours[i];               
+            }
+
+            SpaceRaceGame.resetRound = false;
         }
 
     }//end SnakesAndLadders
