@@ -121,6 +121,9 @@ namespace Game_Logic_Class
 
             int noPowerCounter = 0;
             resetRound = true;
+
+
+
             // Creating a loop to loop through all of the players
             // Checking to see if the player has fuel
             // If the player has no fuel it will not play a round
@@ -159,9 +162,6 @@ namespace Game_Logic_Class
             }
 
         }
-
-
-
 
 
         public static void resetGame()

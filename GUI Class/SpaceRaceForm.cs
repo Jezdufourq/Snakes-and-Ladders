@@ -13,10 +13,9 @@ namespace GUI_Class
         // The numbers of rows and columns on the screen.
         const int NUM_OF_ROWS = 7;
         const int NUM_OF_COLUMNS = 8;
-
         // For single play implementation
-        int click = 0;
 
+        int click = 0;
         // When we update what's on the screen, we show the movement of a player 
         // by removing them from their old square and adding them to their new square.
         // This enum makes it clear that we need to do both.
@@ -26,7 +25,6 @@ namespace GUI_Class
         public SpaceRaceForm()
         {
             InitializeComponent();
-
             Board.SetUpBoard();
             ResizeGUIGameBoard();
             SetUpGUIGameBoard();
@@ -572,26 +570,43 @@ namespace GUI_Class
             RollDiceButton.Enabled = true;
         }
 
+        private static int test3 = 0;
+
         private void SingleStepLogic()
         {
-            int[] oldPosition = new int[SpaceRaceGame.NumberOfPlayers];
+            bool test = false;
+            Console.WriteLine("Updated click: {0}", click);
+            System.Collections.Generic.List<int> oldPosition = new System.Collections.Generic.List<int>();
+
             if (click % SpaceRaceGame.NumberOfPlayers == 0)
             {
-                SpaceRaceGame.PlayOneRound();
-                
+                test = true;
+                Console.WriteLine("If Statement: {0}", test);
+
+                Console.WriteLine("Round: {0}", test3);
                 for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
                 {
-                    oldPosition[index] = StoreLocationOfPlayers(index);
+                    oldPosition.Add(SpaceRaceGame.Players[index].Position);
+                    Console.WriteLine("{0}", oldPosition[index]);
                 }
+                SpaceRaceGame.PlayOneRound();
+                click = 0;
+                test3++;
             }
 
+            for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
+            {
+                Console.WriteLine("Updated array: {0}", oldPosition[index]);
+            }
+
+            Console.WriteLine("Player Number: {0}", click % SpaceRaceGame.NumberOfPlayers);
+            Console.WriteLine("Square Number: {0}", oldPosition[click]);
+
             UpdateOldPlayerGuiLocation(click % SpaceRaceGame.NumberOfPlayers, oldPosition[click], TypeOfGuiUpdate.RemovePlayer);
-            
-            UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.RemovePlayer);
             UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.AddPlayer);
 
-            // update individually
             UpdatesPlayersDataGridView();
+
         }
 
         private void MultiStepLogic()

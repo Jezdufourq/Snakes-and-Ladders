@@ -90,5 +90,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Space Race\Console Class.csproj">
+      <Project>{89ada912-74d3-4de3-9dd6-c81e6d8180d0}</Project>
+      <Name>Console Class</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
