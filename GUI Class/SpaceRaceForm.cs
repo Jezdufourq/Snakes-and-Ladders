@@ -14,6 +14,9 @@ namespace GUI_Class
         const int NUM_OF_ROWS = 7;
         const int NUM_OF_COLUMNS = 8;
 
+        // For single play implementation
+        int click = 0;
+
         // When we update what's on the screen, we show the movement of a player 
         // by removing them from their old square and adding them to their new square.
         // This enum makes it clear that we need to do both.
@@ -31,12 +34,7 @@ namespace GUI_Class
             SetupPlayersDataGridView();
             SpaceRaceGame.SetUpPlayers();
             PrepareToPlay();
-
-            if (SpaceRaceGame.gameFinish)
-            {
-                MessageBox.Show("Games finished");
-                
-            }
+            ExitButtonCondition();
 
 
 
@@ -362,6 +360,30 @@ namespace GUI_Class
             RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
         } //end UpdatePlayersGuiLocations
 
+        // update one player location on GUI at a time
+
+        private void UpdateSinglePlayerGuiLocations(int PlayerNumber, TypeOfGuiUpdate typeOfGuiUpdate)
+        {
+            // Completed this section
+            
+            // Determining the square number of the player
+            int squareNum = GetSquareNumberOfPlayer(PlayerNumber);
+
+            SquareControl squareControl = SquareControlAt(squareNum);
+
+            // Retrieving the SquareControl object
+            if (typeOfGuiUpdate == TypeOfGuiUpdate.AddPlayer)
+            {
+                squareControl.ContainsPlayers[PlayerNumber] = true;
+            }
+            if (typeOfGuiUpdate == TypeOfGuiUpdate.RemovePlayer)
+            {
+                squareControl.ContainsPlayers[PlayerNumber] = false;
+            }
+
+            RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
+        } //end UpdateSinglePlayerGuiLocations
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -406,11 +428,17 @@ namespace GUI_Class
 
         private void RollDiceButton_Click(object sender, EventArgs e)
         {
- 
-            UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
-            SpaceRaceGame.PlayOneRound();
-            UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
-            UpdatesPlayersDataGridView();
+            if (NoRadioButton.Checked)
+            {
+                MultiStepLogic();
+            }
+
+            else if (YesRadioButton.Checked)
+            {
+                
+                SingleStepLogic();
+                click++;
+            }
 
             if (SpaceRaceGame.resetRound)
             {
@@ -433,6 +461,11 @@ namespace GUI_Class
             PrepareToPlay();
 
 
+            YesRadioButton.Checked = false;
+            NoRadioButton.Checked = false;
+            SingleStep.Enabled = true;
+
+
             if (!SpaceRaceGame.resetRound)
             {
                 GameResetButton.Enabled = false;
@@ -444,7 +477,7 @@ namespace GUI_Class
 
             if (!SpaceRaceGame.gameFinish)
             {
-                RollDiceButton.Enabled = true;
+                RollDiceButton.Enabled = false;
             }
 
         }
@@ -488,5 +521,59 @@ namespace GUI_Class
             MessageBox.Show(finishMessage);
         }
 
+
+        /// <summary>
+        /// This method implements the functionality to enable and disable the exit button depending on the conditions as per the task sheet
+        /// </summary>
+        private void ExitButtonCondition()
+        {
+            if (SpaceRaceGame.resetRound)
+            {
+                exitButton.Enabled = false;
+            }
+        }
+
+
+
+        private void YesRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            SingleStep.Enabled = false;
+            RollDiceButton.Enabled = true;
+            
+
+        }
+
+        private void NoRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+            SingleStep.Enabled = false;
+            RollDiceButton.Enabled = true;
+        }
+
+        private void SingleStepLogic()
+        {
+
+            if (click % SpaceRaceGame.NumberOfPlayers == 0)
+            {
+                UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.RemovePlayer);
+                SpaceRaceGame.PlayOneRound();
+
+            }
+
+            UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.RemovePlayer);
+            UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.AddPlayer);
+
+            // update individually
+            UpdatesPlayersDataGridView();
+        }
+
+        private void MultiStepLogic()
+        {
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
+            SpaceRaceGame.PlayOneRound();
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
+            UpdatesPlayersDataGridView();
+        }
+        
     }// end class
 }

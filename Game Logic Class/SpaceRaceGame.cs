@@ -115,6 +115,55 @@ namespace Game_Logic_Class
             }
         }
 
+
+        public static void PlayOneRoundSinglePlayer(Player player)
+        {
+
+            int noPowerCounter = 0;
+            resetRound = true;
+            // Creating a loop to loop through all of the players
+            // Checking to see if the player has fuel
+            // If the player has no fuel it will not play a round
+            if (player.HasPower)
+            {
+                //continue;
+            }
+            else
+            {
+                player.Play(die1, die2);
+            }
+
+            if (player.AtFinish)
+            {
+                gameFinish = true;
+
+            }
+
+            // This for loop checks to see when the game is finished
+            for (int i = 0; i < NumberOfPlayers; i++)
+            {
+                if (Players[i].AtFinish)
+                {
+                    gameFinish = true;
+                }
+
+                if (!Players[i].HasPower)
+                {
+                    noPowerCounter++;
+                }
+
+                if (noPowerCounter == NumberOfPlayers)
+                {
+                    gameFinish = true;
+                }
+            }
+
+        }
+
+
+
+
+
         public static void resetGame()
         {
             for (int i = 0; i < NumberOfPlayers; i++)

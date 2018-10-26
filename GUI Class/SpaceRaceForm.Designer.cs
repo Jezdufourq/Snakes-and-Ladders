@@ -60,7 +60,6 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -79,9 +78,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.NumberOfPlayersLabel);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.exitButton);
-            this.splitContainer1.Size = new System.Drawing.Size(1179, 814);
-            this.splitContainer1.SplitterDistance = 884;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(884, 661);
+            this.splitContainer1.SplitterDistance = 662;
             this.splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel
@@ -99,6 +97,7 @@
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 7;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
@@ -108,7 +107,7 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(884, 814);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(662, 661);
             this.tableLayoutPanel.TabIndex = 0;
             this.tableLayoutPanel.Tag = "";
             this.tableLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel_Paint);
@@ -117,9 +116,10 @@
             // 
             this.GameResetButton.Enabled = false;
             this.GameResetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GameResetButton.Location = new System.Drawing.Point(18, 769);
+            this.GameResetButton.Location = new System.Drawing.Point(14, 625);
+            this.GameResetButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.GameResetButton.Name = "GameResetButton";
-            this.GameResetButton.Size = new System.Drawing.Size(138, 32);
+            this.GameResetButton.Size = new System.Drawing.Size(104, 26);
             this.GameResetButton.TabIndex = 8;
             this.GameResetButton.Text = "Game Reset";
             this.GameResetButton.UseVisualStyleBackColor = true;
@@ -127,10 +127,12 @@
             // 
             // RollDiceButton
             // 
+            this.RollDiceButton.Enabled = false;
             this.RollDiceButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RollDiceButton.Location = new System.Drawing.Point(102, 718);
+            this.RollDiceButton.Location = new System.Drawing.Point(76, 583);
+            this.RollDiceButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RollDiceButton.Name = "RollDiceButton";
-            this.RollDiceButton.Size = new System.Drawing.Size(98, 35);
+            this.RollDiceButton.Size = new System.Drawing.Size(74, 28);
             this.RollDiceButton.TabIndex = 7;
             this.RollDiceButton.Text = "Roll Dice";
             this.RollDiceButton.UseVisualStyleBackColor = true;
@@ -141,11 +143,12 @@
             this.SingleStep.BackColor = System.Drawing.SystemColors.ControlDark;
             this.SingleStep.Controls.Add(this.NoRadioButton);
             this.SingleStep.Controls.Add(this.YesRadioButton);
-            this.SingleStep.Enabled = false;
             this.SingleStep.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SingleStep.Location = new System.Drawing.Point(77, 528);
+            this.SingleStep.Location = new System.Drawing.Point(58, 429);
+            this.SingleStep.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SingleStep.Name = "SingleStep";
-            this.SingleStep.Size = new System.Drawing.Size(140, 55);
+            this.SingleStep.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SingleStep.Size = new System.Drawing.Size(105, 45);
             this.SingleStep.TabIndex = 6;
             this.SingleStep.TabStop = false;
             this.SingleStep.Text = "Single Step?";
@@ -153,24 +156,28 @@
             // NoRadioButton
             // 
             this.NoRadioButton.AutoSize = true;
-            this.NoRadioButton.Location = new System.Drawing.Point(82, 21);
+            this.NoRadioButton.Location = new System.Drawing.Point(62, 17);
+            this.NoRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.NoRadioButton.Name = "NoRadioButton";
-            this.NoRadioButton.Size = new System.Drawing.Size(49, 21);
+            this.NoRadioButton.Size = new System.Drawing.Size(41, 17);
             this.NoRadioButton.TabIndex = 0;
             this.NoRadioButton.TabStop = true;
             this.NoRadioButton.Text = "No";
             this.NoRadioButton.UseVisualStyleBackColor = true;
+            this.NoRadioButton.CheckedChanged += new System.EventHandler(this.NoRadioButton_CheckedChanged);
             // 
             // YesRadioButton
             // 
             this.YesRadioButton.AutoSize = true;
-            this.YesRadioButton.Location = new System.Drawing.Point(23, 21);
+            this.YesRadioButton.Location = new System.Drawing.Point(17, 17);
+            this.YesRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.YesRadioButton.Name = "YesRadioButton";
-            this.YesRadioButton.Size = new System.Drawing.Size(56, 21);
+            this.YesRadioButton.Size = new System.Drawing.Size(46, 17);
             this.YesRadioButton.TabIndex = 0;
             this.YesRadioButton.TabStop = true;
             this.YesRadioButton.Text = "Yes";
             this.YesRadioButton.UseVisualStyleBackColor = true;
+            this.YesRadioButton.CheckedChanged += new System.EventHandler(this.YesRadioButton_CheckedChanged);
             // 
             // playerDataGridView
             // 
@@ -184,11 +191,12 @@
             this.positionDataGridViewTextBoxColumn,
             this.rocketFuelDataGridViewTextBoxColumn});
             this.playerDataGridView.DataSource = this.playerBindingSource;
-            this.playerDataGridView.Location = new System.Drawing.Point(7, 257);
+            this.playerDataGridView.Location = new System.Drawing.Point(5, 209);
+            this.playerDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.playerDataGridView.Name = "playerDataGridView";
             this.playerDataGridView.RowHeadersVisible = false;
             this.playerDataGridView.RowTemplate.Height = 24;
-            this.playerDataGridView.Size = new System.Drawing.Size(280, 216);
+            this.playerDataGridView.Size = new System.Drawing.Size(210, 176);
             this.playerDataGridView.TabIndex = 5;
             this.playerDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.playerDataGridView_CellContentClick);
             // 
@@ -239,9 +247,10 @@
             // 
             this.Players.AutoSize = true;
             this.Players.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Players.Location = new System.Drawing.Point(83, 222);
+            this.Players.Location = new System.Drawing.Point(62, 180);
+            this.Players.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Players.Name = "Players";
-            this.Players.Size = new System.Drawing.Size(117, 32);
+            this.Players.Size = new System.Drawing.Size(92, 26);
             this.Players.TabIndex = 4;
             this.Players.Text = "Players";
             this.Players.Click += new System.EventHandler(this.Players_Click);
@@ -255,9 +264,10 @@
             "4",
             "5",
             "6"});
-            this.NumberOfPlayersBox.Location = new System.Drawing.Point(205, 115);
+            this.NumberOfPlayersBox.Location = new System.Drawing.Point(154, 93);
+            this.NumberOfPlayersBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.NumberOfPlayersBox.Name = "NumberOfPlayersBox";
-            this.NumberOfPlayersBox.Size = new System.Drawing.Size(48, 24);
+            this.NumberOfPlayersBox.Size = new System.Drawing.Size(37, 21);
             this.NumberOfPlayersBox.TabIndex = 3;
             this.NumberOfPlayersBox.Text = "6";
             this.NumberOfPlayersBox.SelectedIndexChanged += new System.EventHandler(this.NumberOfPlayersBox_SelectedIndexChanged);
@@ -266,9 +276,10 @@
             // 
             this.NumberOfPlayersLabel.AutoSize = true;
             this.NumberOfPlayersLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumberOfPlayersLabel.Location = new System.Drawing.Point(35, 118);
+            this.NumberOfPlayersLabel.Location = new System.Drawing.Point(26, 96);
+            this.NumberOfPlayersLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.NumberOfPlayersLabel.Name = "NumberOfPlayersLabel";
-            this.NumberOfPlayersLabel.Size = new System.Drawing.Size(142, 17);
+            this.NumberOfPlayersLabel.Size = new System.Drawing.Size(110, 13);
             this.NumberOfPlayersLabel.TabIndex = 2;
             this.NumberOfPlayersLabel.Text = "Number of Players";
             this.NumberOfPlayersLabel.Click += new System.EventHandler(this.NumberOfPlayersLabel_Click);
@@ -277,9 +288,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(61, 41);
+            this.label1.Location = new System.Drawing.Point(46, 33);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(179, 32);
+            this.label1.Size = new System.Drawing.Size(141, 26);
             this.label1.TabIndex = 1;
             this.label1.Text = "Space Race";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -287,10 +299,9 @@
             // exitButton
             // 
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(167, 769);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(4);
+            this.exitButton.Location = new System.Drawing.Point(125, 625);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(100, 31);
+            this.exitButton.Size = new System.Drawing.Size(75, 25);
             this.exitButton.TabIndex = 0;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
@@ -298,11 +309,10 @@
             // 
             // SpaceRaceForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1179, 814);
+            this.ClientSize = new System.Drawing.Size(884, 661);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SpaceRaceForm";
             this.Text = "Space Race";
             this.splitContainer1.Panel1.ResumeLayout(false);
