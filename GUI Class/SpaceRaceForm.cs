@@ -291,7 +291,6 @@ namespace GUI_Class
             return SpaceRaceGame.Players[playerNumber].Position;
         }//end GetSquareNumberOfPlayer
 
-
         /// <summary>
         /// When the SquareControl objects are updated (when players move to a new square),
         /// the board's TableLayoutPanel is not updated immediately.  
@@ -361,6 +360,23 @@ namespace GUI_Class
         } //end UpdatePlayersGuiLocations
 
         // update one player location on GUI at a time
+        private void UpdateOldPlayerGuiLocation(int playerNumber, int squareNumber, TypeOfGuiUpdate typeOfGuiUpdate)
+        {
+            SquareControl squareControl = SquareControlAt(squareNumber);
+
+            // Retrieving the SquareControl object
+            if (typeOfGuiUpdate == TypeOfGuiUpdate.AddPlayer)
+            {
+                squareControl.ContainsPlayers[playerNumber] = true;
+            }
+            if (typeOfGuiUpdate == TypeOfGuiUpdate.RemovePlayer)
+            {
+                squareControl.ContainsPlayers[playerNumber] = false;
+            }
+
+            RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
+        }
+
 
         private void UpdateSinglePlayerGuiLocations(int PlayerNumber, TypeOfGuiUpdate typeOfGuiUpdate)
         {
@@ -454,6 +470,12 @@ namespace GUI_Class
                 RollDiceButton.Enabled = false;
             }
         }
+
+        private int StoreLocationOfPlayers(int playerNumber)
+        {    
+            return SpaceRaceGame.Players[playerNumber].Position;
+        }
+
 
         private void GameResetButton_Click(object sender, EventArgs e)
         {
@@ -552,14 +574,19 @@ namespace GUI_Class
 
         private void SingleStepLogic()
         {
-
+            int[] oldPosition = new int[SpaceRaceGame.NumberOfPlayers];
             if (click % SpaceRaceGame.NumberOfPlayers == 0)
             {
-                UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.RemovePlayer);
                 SpaceRaceGame.PlayOneRound();
-
+                
+                for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
+                {
+                    oldPosition[index] = StoreLocationOfPlayers(index);
+                }
             }
 
+            UpdateOldPlayerGuiLocation(click % SpaceRaceGame.NumberOfPlayers, oldPosition[click], TypeOfGuiUpdate.RemovePlayer);
+            
             UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.RemovePlayer);
             UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.AddPlayer);
 
