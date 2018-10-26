@@ -17,20 +17,6 @@ namespace Space_Race
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-
-            /*                    
-             Set up the board in Board class (Board.SetUpBoard)
-
-            Determine number of players - initally play with 2 for testing purposes 
-             Create the required players in Game Logic class
-              and initialize players for start of a game             
-             loop  until game is finished           
-                call PlayGame in Game Logic class to play one round
-                Output each player's details at end of round
-             end loop
-             Determine if anyone has won
-             Output each player's details at end of the game
-           */
             DisplayIntroductionMessage();    
 
             while (!numberOfPlayersInput())
@@ -97,6 +83,25 @@ namespace Space_Race
         /// </summary>
         static void DisplayEndGame()
         {
+
+            // check if game has ended because all players ran out of fuel
+            int counter = 0;
+            for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
+            {
+                if (!SpaceRaceGame.Players[i].AtFinish)
+                {
+                    counter++;
+
+                }
+            }
+
+            // if counter reaches NumberOfPlayers then all players are out of fuel
+            if (counter == SpaceRaceGame.NumberOfPlayers)
+            {
+                Console.WriteLine("All players ran out of fuel before any reached the final square.");
+            }
+
+
             Console.WriteLine("\tThe following player(s) finished the game");
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {

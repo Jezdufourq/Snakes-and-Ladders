@@ -77,6 +77,7 @@ namespace Game_Logic_Class
         public static void PlayOneRound()
         {
             bool[] playerHasPower = new bool[NumberOfPlayers];
+            int noPowerCounter = 0;
 
             resetRound = true;
             // Creating a loop to loop through all of the players
@@ -98,6 +99,16 @@ namespace Game_Logic_Class
             for (int i = 0; i < NumberOfPlayers; i++)
             {
                 if (Players[i].AtFinish)
+                {
+                    gameFinish = true;
+                }
+
+                if (!Players[i].HasPower)
+                {
+                    noPowerCounter++;
+                }
+
+                if (noPowerCounter == NumberOfPlayers)
                 {
                     gameFinish = true;
                 }
