@@ -385,12 +385,18 @@ namespace GUI_Class
 
         private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //DetermineNumberOfPlayers();
-            //SpaceRaceGame.resetGame();
-            //SpaceRaceGame.updatePlayers();
-            //SpaceRaceGame.resetGame();
-            //UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
-            //UpdatesPlayersDataGridView();
+            if (!SpaceRaceGame.resetRound)
+            {
+                DetermineNumberOfPlayers();
+                SpaceRaceGame.SetUpPlayers();
+                UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
+
+            }
+            else
+            {
+                NumberOfPlayersBox.Enabled = false;
+                MessageBox.Show("Cannot change number of players! Game is in play.");
+            }
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)

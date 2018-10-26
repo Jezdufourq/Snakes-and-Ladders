@@ -121,7 +121,9 @@ namespace GUI_Class
             const int PLAYER_TOKEN_SIZE = 20;  // pixels.
             const int PLAYER_TOKEN_SPACING = 8;// (SQUARE_SIZE - (PLAYER_TOKEN_SIZE * PLAYER_TOKENS_PER_ROW)) / (PLAYER_TOKENS_PER_ROW - 1);
 
-            for (int i = 0; i < containsPlayers.Length; i++)
+
+            // Changed the index condition value from containsPlayers.Length to SpaceRaceGame.NumberOfPlayers
+            for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {
                 if (containsPlayers[i])
                 {

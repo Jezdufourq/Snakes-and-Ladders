@@ -18,8 +18,6 @@ namespace Game_Logic_Class
 
         public static bool resetPlayers = false;
 
-
-
         private static int numberOfPlayers;  //default value for test purposes only 
         public static int NumberOfPlayers
         {
