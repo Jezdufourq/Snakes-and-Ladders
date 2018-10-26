@@ -13,10 +13,14 @@ namespace Game_Logic_Class
 
         // This variable determines if the game has finished or not
         public static bool gameFinish = false;
-        public static bool roundFinish = false;
+
         public static bool resetRound = false;
 
-        private static int numberOfPlayers = 2;  //default value for test purposes only 
+        public static bool resetPlayers = false;
+
+
+
+        private static int numberOfPlayers;  //default value for test purposes only 
         public static int NumberOfPlayers
         {
             get
@@ -82,7 +86,7 @@ namespace Game_Logic_Class
             {
                 if (!Players[i].HasPower)
                 {
-                    break;
+                    continue;
                 }
                 else
                 {
@@ -98,28 +102,10 @@ namespace Game_Logic_Class
                     gameFinish = true;
                 }
             }
-
-            //// Creating an array of boolean variables
-            //for (int ii = 0; ii < NumberOfPlayers; ii++)
-            //{
-            //    playerHasPower[ii] = Players[ii].HasPower;
-            //    if (!playerHasPower[ii])
-            //    {
-            //        check++;
-            //        continue;
-            //    }
-            //}
-            //if (check == NumberOfPlayers)
-            //{
-            //    gameFinish = true;
-            //}
         }
 
         public static void resetGame()
         {
-
-
-
             for (int i = 0; i < NumberOfPlayers; i++)
             {
 
@@ -132,6 +118,17 @@ namespace Game_Logic_Class
             }
 
             SpaceRaceGame.resetRound = false;
+        }
+
+
+        public static void updatePlayers()
+        {
+
+            for (int index = 0; index < (numberOfPlayers); index++)
+            {
+                Players.RemoveAt(index);
+            }
+
         }
 
     }//end SnakesAndLadders

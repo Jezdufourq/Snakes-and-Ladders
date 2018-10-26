@@ -27,10 +27,33 @@ namespace GUI_Class
             Board.SetUpBoard();
             ResizeGUIGameBoard();
             SetUpGUIGameBoard();
-            SetupPlayersDataGridView();
             DetermineNumberOfPlayers();
+            SetupPlayersDataGridView();
             SpaceRaceGame.SetUpPlayers();
             PrepareToPlay();
+
+            if (SpaceRaceGame.gameFinish)
+            {
+                MessageBox.Show("Games finished");
+                
+            }
+
+
+
+            // test();
+
+        }
+
+        private void test()
+        {
+            // Grabbing the users input and converting to an integer.
+            string numberOfPlayersStr = NumberOfPlayersBox.SelectedText;
+            int numberOfPlayersInt;
+
+            numberOfPlayersInt = Convert.ToInt32(numberOfPlayersStr);
+
+            Console.WriteLine("{0}", numberOfPlayersInt);
+
         }
 
 
@@ -231,15 +254,10 @@ namespace GUI_Class
         /// </summary>
         private void PrepareToPlay()
         {
-            // More code will be needed here to deal with restarting 
-            // a game after the Reset button has been clicked. 
-            //
-            // Leave this method with the single statement 
-            // until you can play a game through to the finish square
-            // and you want to implement the Reset button event handler.
-            //
-
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
+            SpaceRaceGame.resetGame();
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
+            UpdatesPlayersDataGridView();
 
         }//end PrepareToPlay()
 
@@ -367,24 +385,12 @@ namespace GUI_Class
 
         private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int i = 0;
-            try
-            {
-                i = Convert.ToInt32(NumberOfPlayersBox.SelectedText);
-                SpaceRaceGame.NumberOfPlayers = i;
-            }
-            catch (FormatException)
-            {
-                // the FormatException is thrown when the string text does 
-                // not represent a valid integer.
-            }
-            catch (OverflowException)
-            {
-                // the OverflowException is thrown when the string is a valid integer, 
-                // but is too large for a 32 bit integer.  Use Convert.ToInt64 in
-                // this case.
-            }
-
+            //DetermineNumberOfPlayers();
+            //SpaceRaceGame.resetGame();
+            //SpaceRaceGame.updatePlayers();
+            //SpaceRaceGame.resetGame();
+            //UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
+            //UpdatesPlayersDataGridView();
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
@@ -409,14 +415,17 @@ namespace GUI_Class
             {
                 GameResetButton.Enabled = true;
             }
+
+            if (SpaceRaceGame.gameFinish)
+            {
+                MessageBox.Show("game finished");
+            }
         }
 
         private void GameResetButton_Click(object sender, EventArgs e)
         {
-            UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);     
-            SpaceRaceGame.resetGame();
-            UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
-            UpdatesPlayersDataGridView();
+
+            PrepareToPlay();
 
 
             if (!SpaceRaceGame.resetRound)

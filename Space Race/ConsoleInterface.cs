@@ -65,24 +65,7 @@ namespace Space_Race
 
             // Wait for the user
             PressEnter();
-               
-            // TESTING FOR THE SET UP PLAYERS FUNCTION
-            //int i = 0;
-            //foreach (object a in SpaceRaceGame.Players)
-            //{
-            //    Console.WriteLine("Location: " + SpaceRaceGame.Players[i].Location);
-            //    Console.WriteLine("Name: " + SpaceRaceGame.Players[i].Name);
-            //    Console.WriteLine("HasPower: " + SpaceRaceGame.Players[i].HasPower);
-            //    Console.WriteLine("Position: " + SpaceRaceGame.Players[i].Position);
-            //    Console.WriteLine("RocketFuel: " + SpaceRaceGame.Players[i].RocketFuel);
-            //    Console.WriteLine("AtFinish: " + SpaceRaceGame.Players[i].AtFinish + Environment.NewLine + " ");
-            //    i++;
-            //}
-            //PressEnter();
 
-            // TODO: Need to determine if anyone has won the game
-
-            // TODO: Need to print the winner of the game to the console
         }//end Main
 
 
