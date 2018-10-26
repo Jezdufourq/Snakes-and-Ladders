@@ -406,12 +406,7 @@ namespace GUI_Class
 
         private void RollDiceButton_Click(object sender, EventArgs e)
         {
-            // Creating an event handler which will play a round
-            // Call UpdatePlayersGuiLocations
-            // PlayOneRound of SpaceRaceGame
-            // UpdatePlayersGuiLocations
-            //UpdatePlayersDataGridView
-
+ 
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
             SpaceRaceGame.PlayOneRound();
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
@@ -424,7 +419,11 @@ namespace GUI_Class
 
             if (SpaceRaceGame.gameFinish)
             {
-                MessageBox.Show("game finished");
+
+                // Displaying the end game message
+                DisplayEndGameMessage();
+
+                RollDiceButton.Enabled = false;
             }
         }
 
@@ -439,12 +438,54 @@ namespace GUI_Class
                 GameResetButton.Enabled = false;
             }
 
+
             SpaceRaceGame.resetRound = false;
+            SpaceRaceGame.gameFinish = false;
+
+            if (!SpaceRaceGame.gameFinish)
+            {
+                RollDiceButton.Enabled = true;
+            }
+
         }
 
         private void tableLayoutPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void DisplayEndGameMessage()
+        {
+            // 
+            int counter = 0;
+            string finishMessage = "";
+
+            for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
+            {
+                if (!SpaceRaceGame.Players[i].AtFinish)
+                {
+                    counter++;
+
+                }
+            }
+
+            finishMessage += "The following player(s) finished the game:\n\n";
+            for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
+            {
+                if (SpaceRaceGame.Players[i].AtFinish)
+                {
+                    finishMessage += "\t" + SpaceRaceGame.Players[i].Name + "\n\n";
+                }
+            }
+
+            finishMessage += "Individual players finished at the location specified:\n\n";
+
+            for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
+            {
+                finishMessage += "\t" + SpaceRaceGame.Players[i].Name + " with " + SpaceRaceGame.Players[i].RocketFuel + " yottawatt of power at square " + SpaceRaceGame.Players[i].Position + "\n\n";
+            }
+
+            MessageBox.Show(finishMessage);
         }
 
     }// end class
