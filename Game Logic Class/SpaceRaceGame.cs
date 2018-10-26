@@ -57,6 +57,8 @@ namespace Game_Logic_Class
         /// </summary>
         public static void SetUpPlayers()
         {
+            Players.Clear();
+
             for (int i = 0; i < NumberOfPlayers; i++)
             {
                 Players.Add(new Player(names[i])
@@ -132,15 +134,6 @@ namespace Game_Logic_Class
         }
 
 
-        public static void updatePlayers()
-        {
-
-            for (int index = 0; index < (numberOfPlayers); index++)
-            {
-                Players.RemoveAt(index);
-            }
-
-        }
 
     }//end SnakesAndLadders
 }

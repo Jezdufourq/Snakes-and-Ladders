@@ -17,40 +17,42 @@ namespace Space_Race
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            DisplayIntroductionMessage();    
+            bool game = true;
 
-            while (!numberOfPlayersInput())
+            while (game)
             {
                 DisplayIntroductionMessage();
+
+                while (!numberOfPlayersInput())
+                {
+                    DisplayIntroductionMessage();
+                }
+
+                // Waiting for the user to enter into the game
+                EnterRound();
+
+                // Initilising and setting up the playing board
+                Board.SetUpBoard();
+
+                // Setting the number of players
+                SpaceRaceGame.SetUpPlayers();
+
+                int roundNumber = 0;
+                while (!SpaceRaceGame.gameFinish)
+                {
+                    RoundNumberPrint(roundNumber);
+                    SpaceRaceGame.PlayOneRound();
+                    DisplayPlayerRound();
+                    PressEnter();
+                    roundNumber++;
+                } // end game loop
+
+                // Displaying the end game message
+                DisplayEndGame();
+
+                game = PromptNewGame();
             }
 
-            // Waiting for the user to enter into the game
-            EnterRound();
-
-            // Initilising and setting up the playing board
-            Board.SetUpBoard();
-
-            // Setting the number of players
-            SpaceRaceGame.SetUpPlayers();
-
-            playerInformation();
-
-            int roundNumber = 0;
-            while (!SpaceRaceGame.gameFinish)
-            {
-                RoundNumberPrint(roundNumber);
-                SpaceRaceGame.PlayOneRound();
-                Console.WriteLine("0", SpaceRaceGame.gameFinish);
-                DisplayPlayerRound();
-                PressEnter();
-                roundNumber++;
-            } // end game loop
-
-            // Displaying the end game message
-            DisplayEndGame();
-
-            // Wait for the user
-            PressEnter();
 
         }//end Main
 
@@ -229,6 +231,27 @@ namespace Space_Race
             Console.ReadKey();
             
         } // end PressAny
+
+
+        static bool PromptNewGame()
+        {
+            string userInput = null;
+            Console.WriteLine("Would you like to play another game? Y or N:");
+            userInput = Console.ReadLine();
+
+            if (userInput == "Y" || userInput == "y")
+            {
+                SpaceRaceGame.gameFinish = false;
+                return true;
+
+            }
+            else
+            {
+                return false;
+
+            }
+
+        }
 
     }//end Console class
 }
