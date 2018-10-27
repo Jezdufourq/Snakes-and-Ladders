@@ -38,7 +38,7 @@ namespace Space_Race
                 SpaceRaceGame.SetUpPlayers();
 
                 int roundNumber = 0;
-                while (!SpaceRaceGame.gameFinish)
+                while (!SpaceRaceGame.GameOverCheck())
                 {
                     RoundNumberPrint(roundNumber);
                     SpaceRaceGame.PlayOneRound();
@@ -49,7 +49,6 @@ namespace Space_Race
 
                 // Displaying the end game message
                 DisplayEndGame();
-
                 game = PromptNewGame();
             }
 

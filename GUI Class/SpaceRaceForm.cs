@@ -13,9 +13,10 @@ namespace GUI_Class
         // The numbers of rows and columns on the screen.
         const int NUM_OF_ROWS = 7;
         const int NUM_OF_COLUMNS = 8;
+        
         // For single play implementation
+        private int currentPlayer = 0;
 
-        int click = 0;
         // When we update what's on the screen, we show the movement of a player 
         // by removing them from their old square and adding them to their new square.
         // This enum makes it clear that we need to do both.
@@ -63,7 +64,7 @@ namespace GUI_Class
             // The exit button is enabled at the start of the game
             // The exit button is disabled during any round
             // The exit button is enabled after each round
-            if (SpaceRaceGame.resetRound)
+            if (SpaceRaceGame.roundFinish)
             {
                 exitButton.Enabled = true;
             }
@@ -251,7 +252,7 @@ namespace GUI_Class
         private void PrepareToPlay()
         {
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
-            SpaceRaceGame.resetGame();
+            SpaceRaceGame.SetUpPlayers();
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
             UpdatesPlayersDataGridView();
 
@@ -352,51 +353,10 @@ namespace GUI_Class
                     squareControl.ContainsPlayers[index] = false;
                 }
             }
-
-
             RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
         } //end UpdatePlayersGuiLocations
 
-        // update one player location on GUI at a time
-        private void UpdateOldPlayerGuiLocation(int playerNumber, int squareNumber, TypeOfGuiUpdate typeOfGuiUpdate)
-        {
-            SquareControl squareControl = SquareControlAt(squareNumber);
-
-            // Retrieving the SquareControl object
-            if (typeOfGuiUpdate == TypeOfGuiUpdate.AddPlayer)
-            {
-                squareControl.ContainsPlayers[playerNumber] = true;
-            }
-            if (typeOfGuiUpdate == TypeOfGuiUpdate.RemovePlayer)
-            {
-                squareControl.ContainsPlayers[playerNumber] = false;
-            }
-
-            RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
-        }
-
-
-        private void UpdateSinglePlayerGuiLocations(int PlayerNumber, TypeOfGuiUpdate typeOfGuiUpdate)
-        {
-            // Completed this section
-            
-            // Determining the square number of the player
-            int squareNum = GetSquareNumberOfPlayer(PlayerNumber);
-
-            SquareControl squareControl = SquareControlAt(squareNum);
-
-            // Retrieving the SquareControl object
-            if (typeOfGuiUpdate == TypeOfGuiUpdate.AddPlayer)
-            {
-                squareControl.ContainsPlayers[PlayerNumber] = true;
-            }
-            if (typeOfGuiUpdate == TypeOfGuiUpdate.RemovePlayer)
-            {
-                squareControl.ContainsPlayers[PlayerNumber] = false;
-            }
-
-            RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
-        } //end UpdateSinglePlayerGuiLocations
+     
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -421,7 +381,7 @@ namespace GUI_Class
 
         private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!SpaceRaceGame.resetRound)
+            if (!SpaceRaceGame.roundFinish)
             {
                 DetermineNumberOfPlayers();
                 SpaceRaceGame.SetUpPlayers();
@@ -439,60 +399,66 @@ namespace GUI_Class
         {
 
         }
+        private int roundNumber = 0;
 
         private void RollDiceButton_Click(object sender, EventArgs e)
         {
             if (NoRadioButton.Checked)
             {
                 MultiStepLogic();
+
+                if (SpaceRaceGame.GameOverCheck())
+                {
+                    DisplayEndGameMessage();
+                    GameResetButton.Enabled = true;
+                    RollDiceButton.Enabled = false;
+                }
             }
 
             else if (YesRadioButton.Checked)
             {
-                
+                // if the round has finished, we want to reset the boolean to start a new round
+                if (SpaceRaceGame.roundFinish)
+                {
+                    SpaceRaceGame.roundFinish = false;
+                }
+
                 SingleStepLogic();
-                click++;
+                finishedRound();
+
+                if (SpaceRaceGame.GameOverCheck())
+                {
+                    DisplayEndGameMessage();
+                    GameResetButton.Enabled = true;
+                    RollDiceButton.Enabled = false;
+                }
             }
 
-            if (SpaceRaceGame.resetRound)
+            if (SpaceRaceGame.roundFinish)
             {
-                GameResetButton.Enabled = true;
-            }
-
-            if (SpaceRaceGame.gameFinish)
-            {
-
-                // Displaying the end game message
-                DisplayEndGameMessage();
-
-                RollDiceButton.Enabled = false;
+                
+                Console.WriteLine("Round has finished, round number: {0}", roundNumber);
+                roundNumber++;
             }
         }
-
-        private int StoreLocationOfPlayers(int playerNumber)
-        {    
-            return SpaceRaceGame.Players[playerNumber].Position;
-        }
-
 
         private void GameResetButton_Click(object sender, EventArgs e)
         {
 
             PrepareToPlay();
 
-
             YesRadioButton.Checked = false;
             NoRadioButton.Checked = false;
             SingleStep.Enabled = true;
 
 
-            if (!SpaceRaceGame.resetRound)
+            if (!SpaceRaceGame.roundFinish)
             {
                 GameResetButton.Enabled = false;
             }
 
 
-            SpaceRaceGame.resetRound = false;
+            SpaceRaceGame.roundFinish = false;
             SpaceRaceGame.gameFinish = false;
 
             if (!SpaceRaceGame.gameFinish)
@@ -509,7 +475,7 @@ namespace GUI_Class
 
         private void DisplayEndGameMessage()
         {
-            // 
+
             int counter = 0;
             string finishMessage = "";
 
@@ -547,20 +513,16 @@ namespace GUI_Class
         /// </summary>
         private void ExitButtonCondition()
         {
-            if (SpaceRaceGame.resetRound)
+            if (SpaceRaceGame.roundFinish)
             {
                 exitButton.Enabled = false;
             }
         }
 
-
-
         private void YesRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             SingleStep.Enabled = false;
             RollDiceButton.Enabled = true;
-            
-
         }
 
         private void NoRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -570,43 +532,56 @@ namespace GUI_Class
             RollDiceButton.Enabled = true;
         }
 
-        private static int test3 = 0;
+
+        private void finishedRound()
+        {
+            if (currentPlayer >= SpaceRaceGame.NumberOfPlayers)
+            {
+                currentPlayer = 0;
+                exitButton.Enabled = true;
+                GameResetButton.Enabled = true;
+                GameResetButton.Enabled = true;
+                SpaceRaceGame.roundFinish = true;
+            }
+
+        }
+
+
 
         private void SingleStepLogic()
         {
-            bool test = false;
-            Console.WriteLine("Updated click: {0}", click);
-            System.Collections.Generic.List<int> oldPosition = new System.Collections.Generic.List<int>();
 
-            if (click % SpaceRaceGame.NumberOfPlayers == 0)
+
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
+
+            while (!SpaceRaceGame.Players[currentPlayer].HasPower)
             {
-                test = true;
-                Console.WriteLine("If Statement: {0}", test);
+                currentPlayer++;
 
-                Console.WriteLine("Round: {0}", test3);
-                for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
+                if (currentPlayer >= SpaceRaceGame.NumberOfPlayers)
                 {
-                    oldPosition.Add(SpaceRaceGame.Players[index].Position);
-                    Console.WriteLine("{0}", oldPosition[index]);
+                    currentPlayer = 0;
+
+                    exitButton.Enabled = true;
+                    GameResetButton.Enabled = true;
+
+                    if (SpaceRaceGame.gameFinish)
+                    {
+                        DisplayEndGameMessage();
+                        goto Done;
+                    }
                 }
-                SpaceRaceGame.PlayOneRound();
-                click = 0;
-                test3++;
+
             }
 
-            for (int index = 0; index < SpaceRaceGame.NumberOfPlayers; index++)
-            {
-                Console.WriteLine("Updated array: {0}", oldPosition[index]);
-            }
+            SpaceRaceGame.PlayOneRoundSinglePlayer(SpaceRaceGame.Players[currentPlayer]);
+            Done:
 
-            Console.WriteLine("Player Number: {0}", click % SpaceRaceGame.NumberOfPlayers);
-            Console.WriteLine("Square Number: {0}", oldPosition[click]);
-
-            UpdateOldPlayerGuiLocation(click % SpaceRaceGame.NumberOfPlayers, oldPosition[click], TypeOfGuiUpdate.RemovePlayer);
-            UpdateSinglePlayerGuiLocations(click % SpaceRaceGame.NumberOfPlayers, TypeOfGuiUpdate.AddPlayer);
-
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
             UpdatesPlayersDataGridView();
 
+            currentPlayer++;
+           
         }
 
         private void MultiStepLogic()

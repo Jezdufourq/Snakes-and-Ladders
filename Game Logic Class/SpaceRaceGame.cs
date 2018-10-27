@@ -14,7 +14,7 @@ namespace Game_Logic_Class
         // This variable determines if the game has finished or not
         public static bool gameFinish = false;
 
-        public static bool resetRound = false;
+        public static bool roundFinish = false;
 
         public static bool resetPlayers = false;
 
@@ -76,111 +76,40 @@ namespace Game_Logic_Class
         /// </summary>
         public static void PlayOneRound()
         {
-            bool[] playerHasPower = new bool[NumberOfPlayers];
-            int noPowerCounter = 0;
+            foreach (Player playerObject in Players)
+            {
+                PlayOneRoundSinglePlayer(playerObject);
+                GameOverCheck();
+            }
+        }
 
-            resetRound = true;
-            // Creating a loop to loop through all of the players
-            // Checking to see if the player has fuel
-            // If the player has no fuel it will not play a round
+        public static bool GameOverCheck()
+        {
             for (int i = 0; i < NumberOfPlayers; i++)
             {
-                if (!Players[i].HasPower)
+                if (Players[i].AtFinish && roundFinish)
                 {
-                    continue;
+                    return true;
                 }
-                else
+
+                else if (!Players[i].HasPower && roundFinish)
                 {
-                    Players[i].Play(die1, die2);
+                    return true;
                 }
+                       
             }
-
-            // This for loop checks to see when the game is finished
-            for (int i = 0; i < NumberOfPlayers; i++)
-            {
-                if (Players[i].AtFinish)
-                {
-                    gameFinish = true;
-                }
-
-                if (!Players[i].HasPower)
-                {
-                    noPowerCounter++;
-                }
-
-                if (noPowerCounter == NumberOfPlayers)
-                {
-                    gameFinish = true;
-                }
-            }
+            return false;
         }
 
 
         public static void PlayOneRoundSinglePlayer(Player player)
         {
-
-            int noPowerCounter = 0;
-            resetRound = true;
-
-
-
-            // Creating a loop to loop through all of the players
-            // Checking to see if the player has fuel
-            // If the player has no fuel it will not play a round
             if (player.HasPower)
             {
-                //continue;
-            }
-            else
-            {
                 player.Play(die1, die2);
+
+                GameOverCheck();
             }
-
-            if (player.AtFinish)
-            {
-                gameFinish = true;
-
-            }
-
-            // This for loop checks to see when the game is finished
-            for (int i = 0; i < NumberOfPlayers; i++)
-            {
-                if (Players[i].AtFinish)
-                {
-                    gameFinish = true;
-                }
-
-                if (!Players[i].HasPower)
-                {
-                    noPowerCounter++;
-                }
-
-                if (noPowerCounter == NumberOfPlayers)
-                {
-                    gameFinish = true;
-                }
-            }
-
         }
-
-
-        public static void resetGame()
-        {
-            for (int i = 0; i < NumberOfPlayers; i++)
-            {
-
-                Players[i].Position = 0;
-                Players[i].RocketFuel = Player.INITIAL_FUEL_AMOUNT;
-                Players[i].HasPower = true;
-                Players[i].AtFinish = false;
-                Players[i].Location = Board.StartSquare;
-                Players[i].PlayerTokenColour = playerTokenColours[i];               
-            }
-
-            SpaceRaceGame.resetRound = false;
-        }
-
-
-
     }//end SnakesAndLadders
 }
