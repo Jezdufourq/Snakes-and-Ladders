@@ -17,12 +17,18 @@ namespace Space_Race
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            
+            // User defined game boolean
             bool game = true;
-
+            
+            // MAIN GAME LOOP
+            // While the user still wants to play a game
             while (game)
             {
+                // Diplay introduction message to console
                 DisplayIntroductionMessage();
 
+                // While the number inputted to the console is not valid, keep displaying the introduction message
                 while (!numberOfPlayersInput())
                 {
                     DisplayIntroductionMessage();
@@ -30,14 +36,17 @@ namespace Space_Race
 
                 // Waiting for the user to enter into the game
                 EnterRound();
-
+                    
                 // Initilising and setting up the playing board
                 Board.SetUpBoard();
 
                 // Setting the number of players
                 SpaceRaceGame.SetUpPlayers();
 
+                // Defining a round number used to print each round
                 int roundNumber = 0;
+
+                // while the game is not over
                 while (!SpaceRaceGame.GameOverCheck())
                 {
                     // If the round has not finished, we need to set the round to say that it has finished
@@ -47,21 +56,23 @@ namespace Space_Race
                         SpaceRaceGame.roundFinish = true;
                     }
 
+                    // Main game loop implementation
+                    // Print round number
                     RoundNumberPrint(roundNumber);
+                    // Play one round
                     SpaceRaceGame.PlayOneRound();
+                    // Display round details to console
                     DisplayPlayerRound();
+                    // Wait for the user to proceed to next round
                     PressEnter();
                     roundNumber++;
-                    Console.WriteLine("Game finish variable: {0}", SpaceRaceGame.gameFinish);
-                    Console.WriteLine("Round finish variable: {0}", SpaceRaceGame.roundFinish);
                 } // end game loop
 
                 // Displaying the end game message
                 DisplayEndGame();
+                // Wait for user to prompt new game
                 game = PromptNewGame();
             }
-
-
         }//end Main
 
 
@@ -178,7 +189,7 @@ namespace Space_Race
         {
             Console.WriteLine("Press Enter to play a round ... ");
             Console.ReadKey();
-        }
+        }//end EnterRound
         
         /// <summary>
         /// Grabs the users input for the number of players required
@@ -224,26 +235,35 @@ namespace Space_Race
             
         } // end PressAny
 
-
+        /// <summary>
+        /// Used to determine if the user would like to play a new round or not
+        /// 
+        /// Pre: User is prompted to play another round
+        /// Post: Console closes if the user doesnt want to play a new game. Game resets if user wants to play a new game.
+        /// </summary>
+        /// <returns>
+        /// Returns a boolean variable which is determined by the user wanting to play a new round or not
+        /// </returns>
         static bool PromptNewGame()
         {
             string userInput = null;
+
+            // Prompting the user to choose a new game or not
             Console.WriteLine("Would you like to play another game? Y or N:");
             userInput = Console.ReadLine();
-
+            
+            // Conditional statement which decides if the user wants to play a new game or not
             if (userInput == "Y" || userInput == "y")
             {
                 SpaceRaceGame.gameFinish = false;
                 return true;
-
             }
             else
             {
                 return false;
 
             }
-
-        }
+        }//end PromptNewGame
 
     }//end Console class
 }
