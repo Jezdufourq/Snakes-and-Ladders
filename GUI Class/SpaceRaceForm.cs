@@ -22,53 +22,40 @@ namespace GUI_Class
         // This enum makes it clear that we need to do both.
         enum TypeOfGuiUpdate { AddPlayer, RemovePlayer };
 
-
+        /// <summary>
+        /// Implements a new space race form.
+        /// 
+        /// Pre: null
+        /// Post: Form implemented for the GUI
+        /// </summary>
         public SpaceRaceForm()
         {
+            // Setting up the GUI functionality
             InitializeComponent();
             Board.SetUpBoard();
             ResizeGUIGameBoard();
             SetUpGUIGameBoard();
+
+            // Setting up the backend of the program
+            // This includes the player objects and attributes
             DetermineNumberOfPlayers();
             SetupPlayersDataGridView();
             SpaceRaceGame.SetUpPlayers();
+
+            // Uses the backend data to talk to the fronted GUI to place the tokens of the players for visualisation
             PrepareToPlay();
-            ExitButtonCondition();
-
-
-
-            // test();
-
         }
-
-        private void test()
-        {
-            // Grabbing the users input and converting to an integer.
-            string numberOfPlayersStr = NumberOfPlayersBox.SelectedText;
-            int numberOfPlayersInt;
-
-            numberOfPlayersInt = Convert.ToInt32(numberOfPlayersStr);
-
-            Console.WriteLine("{0}", numberOfPlayersInt);
-
-        }
-
 
         /// <summary>
         /// Handle the Exit button being clicked.
+        /// 
         /// Pre:  the Exit button is clicked.
         /// Post: the game is terminated immediately
         /// </summary>
         private void exitButton_Click(object sender, EventArgs e)
         {
-            // The exit button is enabled at the start of the game
-            // The exit button is disabled during any round
-            // The exit button is enabled after each round
-            if (SpaceRaceGame.roundFinish)
-            {
-                exitButton.Enabled = true;
-            }
 
+            // Exits the GUI
             Environment.Exit(0);
         }
 
@@ -432,6 +419,11 @@ namespace GUI_Class
                     GameResetButton.Enabled = true;
                     RollDiceButton.Enabled = false;
                 }
+
+                if (!SpaceRaceGame.roundFinish)
+                {
+                    exitButton.Enabled = false;
+                }
             }
 
             if (SpaceRaceGame.roundFinish)
@@ -507,18 +499,6 @@ namespace GUI_Class
             MessageBox.Show(finishMessage);
         }
 
-
-        /// <summary>
-        /// This method implements the functionality to enable and disable the exit button depending on the conditions as per the task sheet
-        /// </summary>
-        private void ExitButtonCondition()
-        {
-            if (SpaceRaceGame.roundFinish)
-            {
-                exitButton.Enabled = false;
-            }
-        }
-
         private void YesRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             SingleStep.Enabled = false;
@@ -545,8 +525,6 @@ namespace GUI_Class
             }
 
         }
-
-
 
         private void SingleStepLogic()
         {
