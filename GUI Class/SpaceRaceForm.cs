@@ -13,7 +13,7 @@ namespace GUI_Class
         // The numbers of rows and columns on the screen.
         const int NUM_OF_ROWS = 7;
         const int NUM_OF_COLUMNS = 8;
-        
+
         // For single play implementation
         private int currentPlayer = 0;
 
@@ -54,11 +54,9 @@ namespace GUI_Class
         /// </summary>
         private void exitButton_Click(object sender, EventArgs e)
         {
-
             // Exits the GUI
             Environment.Exit(0);
-        }
-
+        }// exitButton_Click
 
         /// <summary>
         /// Resizes the entire form, so that the individual squares have their correct size, 
@@ -119,11 +117,14 @@ namespace GUI_Class
         /// <param name="columnNumber">The output column number.</param>
         private static void MapSquareNumToScreenRowAndColumn(int squareNum, out int screenRow, out int screenCol)
         {
+            // Defining a column checking variable, where it resets every 16
             int colCheck = squareNum % 16;
 
+            // Initilising the columns and rows
             screenCol = 0;
             screenRow = 0;
 
+            // Checking each of the columns
             switch (colCheck)
             {
                 case 0:
@@ -168,6 +169,7 @@ namespace GUI_Class
 
             }
 
+            // Checking each of the rows
             int rowCheck = squareNum / 8;
             switch (rowCheck)
             {
@@ -233,14 +235,22 @@ namespace GUI_Class
 
         }//end DetermineNumberOfPlayers
 
+
         /// <summary>
         /// The players' tokens are placed on the Start square
+        /// 
+        /// Pre: Players tokens are not drawn on any of the squares
+        /// Post: Players tokens are placed on the starting square
         /// </summary>
         private void PrepareToPlay()
         {
+            // Removing the players
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
+            // Intilising the players locations
             SpaceRaceGame.SetUpPlayers();
+            // Adding them to the square
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
+            // Updating the data grib 
             UpdatesPlayersDataGridView();
 
         }//end PrepareToPlay()
@@ -343,65 +353,52 @@ namespace GUI_Class
             RefreshBoardTablePanelLayout();//must be the last line in this method. Do not put inside above loop.
         } //end UpdatePlayersGuiLocations
 
-     
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void playerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-       
-        }
-
-        private void Players_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NumberOfPlayersLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
+        /// <summary>
+        /// Player box selection.
+        /// Used to implement changing the number of players for the game.
+        /// </summary>
         private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Whilst the round has not finished
             if (!SpaceRaceGame.roundFinish)
             {
+                // Determine the number of players from the box, and then update the data grid and players bindinglist accordingly
                 DetermineNumberOfPlayers();
                 SpaceRaceGame.SetUpPlayers();
                 UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
 
             }
-            else
+            else // whilst the round has finished
             {
                 NumberOfPlayersBox.Enabled = false;
                 MessageBox.Show("Cannot change number of players! Game is in play.");
             }
         }
 
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        private int roundNumber = 0;
-
+        /// <summary>
+        /// Implementation of the roll dice button.
+        /// This method is called everytime the roll dice button is pressed.
+        /// The main functioanlity of this is to play a round for each of the players
+        /// </summary>
         private void RollDiceButton_Click(object sender, EventArgs e)
         {
+            // If the user has not selected single step
             if (NoRadioButton.Checked)
             {
+                // Call the multistep logic function
                 MultiStepLogic();
 
+                // Check when the game is over
                 if (SpaceRaceGame.GameOverCheck())
                 {
+                    // Display the end game message
                     DisplayEndGameMessage();
+                    // Handling the button properties
                     GameResetButton.Enabled = true;
                     RollDiceButton.Enabled = false;
                 }
             }
-
+            // If the user has selected single step
             else if (YesRadioButton.Checked)
             {
                 // if the round has finished, we want to reset the boolean to start a new round
@@ -410,65 +407,78 @@ namespace GUI_Class
                     SpaceRaceGame.roundFinish = false;
                 }
 
+                // Calling the single step logic method
                 SingleStepLogic();
+                // Calling the finished round method
                 finishedRound();
 
+                // If the game is over 
                 if (SpaceRaceGame.GameOverCheck())
                 {
+                    // Display the game end message
                     DisplayEndGameMessage();
+                    // Handling the button properties
                     GameResetButton.Enabled = true;
                     RollDiceButton.Enabled = false;
                 }
-
+  
+                // If the round is finished, enable the exit button
                 if (!SpaceRaceGame.roundFinish)
                 {
                     exitButton.Enabled = false;
                 }
             }
-
-            if (SpaceRaceGame.roundFinish)
-            {
-                
-                Console.WriteLine("Round has finished, round number: {0}", roundNumber);
-                roundNumber++;
-            }
         }
+
+
+        /// <summary>
+        /// Implementation of the game reset button.
+        /// Called when the user presses the game reset button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void GameResetButton_Click(object sender, EventArgs e)
         {
-
+            // Resets the player properties
             PrepareToPlay();
 
+            // Handling the button properties
             YesRadioButton.Checked = false;
             NoRadioButton.Checked = false;
             SingleStep.Enabled = true;
 
-
-            if (!SpaceRaceGame.roundFinish)
-            {
-                GameResetButton.Enabled = false;
-            }
-
-
+            // Reset the boolean game variables
             SpaceRaceGame.roundFinish = false;
             SpaceRaceGame.gameFinish = false;
 
+            // IF the round has finished 
+            if (!SpaceRaceGame.roundFinish)
+            {
+                // Do not enable the reset button
+                GameResetButton.Enabled = false;
+            }
+
+            // If the game has finished
             if (!SpaceRaceGame.gameFinish)
             {
+                // Do not enable the roll button 
                 RollDiceButton.Enabled = false;
             }
 
         }
 
-        private void tableLayoutPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Implementation of an end game message.
+        /// This was put into a method to clean up some code.
+        /// The functionality includes a pop up message box which has key information on players at the end of the game.
+        /// </summary>
         private void DisplayEndGameMessage()
         {
-
+            
             int counter = 0;
+
+            // Storing a string for the message box
             string finishMessage = "";
 
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
@@ -480,6 +490,7 @@ namespace GUI_Class
                 }
             }
 
+            // Displaying the players which finished the game
             finishMessage += "The following player(s) finished the game:\n\n";
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {
@@ -489,86 +500,148 @@ namespace GUI_Class
                 }
             }
 
+            // Displaying the player properties
             finishMessage += "Individual players finished at the location specified:\n\n";
-
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {
                 finishMessage += "\t" + SpaceRaceGame.Players[i].Name + " with " + SpaceRaceGame.Players[i].RocketFuel + " yottawatt of power at square " + SpaceRaceGame.Players[i].Position + "\n\n";
             }
 
+            // Showing the message box
             MessageBox.Show(finishMessage);
         }
 
+
+        /// <summary>
+        /// Implementation of the yes button for the single step functionality.
+        /// If the user selects this, then the game will single step.
+        /// </summary>
         private void YesRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             SingleStep.Enabled = false;
             RollDiceButton.Enabled = true;
         }
 
+        /// <summary>
+        /// Implementation of the no button for the single step functionality.
+        /// If the user selects this, then the game will not single step.
+        /// </summary>
         private void NoRadioButton_CheckedChanged(object sender, EventArgs e)
         {
 
             SingleStep.Enabled = false;
             RollDiceButton.Enabled = true;
-        }
+        }//end NoRadioButton_CheckedChanged
 
-
+        /// <summary>
+        /// Determines if the player has finished the round.
+        /// Used for the implementation of the single step functionality.
+        /// </summary>
         private void finishedRound()
         {
+            // If the current player is equal to or greater then the total number of players
             if (currentPlayer >= SpaceRaceGame.NumberOfPlayers)
             {
+                // Then the current round is finished
+                // We reset all the round parameters
                 currentPlayer = 0;
                 exitButton.Enabled = true;
-                GameResetButton.Enabled = true;
-                GameResetButton.Enabled = true;
                 SpaceRaceGame.roundFinish = true;
+                // Handling the buttons
+                GameResetButton.Enabled = true;
+                GameResetButton.Enabled = true;
             }
+        }//end finishedRound
 
-        }
 
+        /// <summary>
+        /// Implementation of the single step functionality.
+        /// This was created as a seperate method to clean up the code.
+        /// </summary>
         private void SingleStepLogic()
         {
-
-
+            // Remove the current players
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
 
+            // The following code acts as a buffer for the players which have finished the round
+            // While the current player does not have power
             while (!SpaceRaceGame.Players[currentPlayer].HasPower)
             {
+                // move onto the next player
                 currentPlayer++;
 
+                // if the current player is equal to or greater than the number of players
                 if (currentPlayer >= SpaceRaceGame.NumberOfPlayers)
                 {
-                    currentPlayer = 0;
-
+                    // Round resets
+                    currentPlayer = 0;      
                     exitButton.Enabled = true;
                     GameResetButton.Enabled = true;
 
+                    // if the game has finished
                     if (SpaceRaceGame.gameFinish)
                     {
+                        // Display the end game message
                         DisplayEndGameMessage();
+
+                        // Jump to done
                         goto Done;
                     }
                 }
 
             }
 
+            // Play a single round with the current player
             SpaceRaceGame.PlayOneRoundSinglePlayer(SpaceRaceGame.Players[currentPlayer]);
-            Done:
 
+        Done:
+
+            // Add the updated player, and update the datagrid view
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
             UpdatesPlayersDataGridView();
 
+            // Iterate to the next player
             currentPlayer++;
-           
-        }
+        }//end SingleStepLogic
 
+
+        /// <summary>
+        /// Implementation of the functionality without the single step.
+        /// This was made into a method to clean up the code.
+        /// </summary>
         private void MultiStepLogic()
         {
+            // Remove the player, play a round and update the datagrid view and GUI
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
             SpaceRaceGame.PlayOneRound();
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
             UpdatesPlayersDataGridView();
+        }//end MultiStepLogic
+
+
+        // EMPTY GUI CLASS METHODS
+        private void label1_Click(object sender, EventArgs e)
+        {
         }
-        
+
+        private void playerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void Players_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void NumberOfPlayersLabel_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void tableLayoutPanel_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+        }
     }// end class
 }

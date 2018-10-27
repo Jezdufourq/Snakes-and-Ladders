@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+// As per the addendum
+using System.IO;
 
 namespace Object_Classes {
 
@@ -12,6 +14,12 @@ namespace Object_Classes {
     /// Represents a dice with many face values that can be rolled.
     /// </summary>
     public class Die {
+        // As Per the addendum
+        private static string defaultPath = Environment.CurrentDirectory;
+        private static string rollFileName = defaultPath + "\\testrolls.txt";
+        private static StreamReader rollFile = new StreamReader(rollFileName);
+        private static bool DEBUG = false;
+
         private const int MIN_FACES = 4;
         private const int DEFAULT_FACE_VALUE = 1;
         private const int SIX_SIDED = 6;
@@ -66,9 +74,17 @@ namespace Object_Classes {
        //  Rolls the die and returns the result.
        //-----------------------------------------------------------------
        public int Roll() {
-           faceValue =  random.Next(NumOfFaces) + 1;
-           return FaceValue;
-       }
+            // As per the addendum
+            if (!DEBUG)
+            {
+                faceValue = random.Next(NumOfFaces) + 1;
+            }
+            else
+            {
+                faceValue = int.Parse(rollFile.ReadLine());
+            }
+            return FaceValue;
+        }
      
      
        //-----------------------------------------------------------------
