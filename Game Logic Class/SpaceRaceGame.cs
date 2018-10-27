@@ -69,37 +69,27 @@ namespace Game_Logic_Class
                     PlayerTokenColour = playerTokenColours[i]
                 });
             }
-        }
+        }// end SetUpPlayers
 
         /// <summary>
-        ///  Plays one round of a game
+        /// Plays one round of the game for all player objects. 
+        /// Uses the PlayOneRoundSinglePlayer method for each of the player objects in the Players binding list
+        /// Pre: Players are initialised as per their previous position
+        /// 
+        /// Post: Players positions and fuel amount are updated accordinly with respect to the dice roll
         /// </summary>
         public static void PlayOneRound()
         {
+            // Foreach of the player objects in the Players binding list
+            // Play one round of the game updating the player object
+            // Check if the game is over
             foreach (Player playerObject in Players)
             {
                 PlayOneRoundSinglePlayer(playerObject);
                 GameOverCheck();
             }
-        }
+        }// end PlayOneRound
 
-        public static bool GameOverCheck()
-        {
-            for (int i = 0; i < NumberOfPlayers; i++)
-            {
-                if (Players[i].AtFinish && roundFinish)
-                {
-                    return true;
-                }
-
-                else if (!Players[i].HasPower && roundFinish)
-                {
-                    return true;
-                }
-                       
-            }
-            return false;
-        }
 
 
         public static void PlayOneRoundSinglePlayer(Player player)
@@ -110,6 +100,38 @@ namespace Game_Logic_Class
 
                 GameOverCheck();
             }
-        }
+        }// end PlayOneRoundSinglePlayer
+
+
+        /// <summary>
+        /// This method checks if the game is over based on the attributes of each of the player objects in the Players binding list.
+        /// If the player is at the finish, and the round is over, then game is ended.
+        /// If the player has no power, and the round is finished, then the game is ended
+        ///
+        /// Pre: The game has not ended, conditions have not been met
+        /// Post: The game is ended, the user need to reset the game to play again
+        /// </summary>
+        public static bool GameOverCheck()
+        {
+            // Looping through each of the player objects in the Players binding list
+            for (int i = 0; i < NumberOfPlayers; i++)
+            {
+                // Condition to check if the player is at the end square, and round is finished
+                if (Players[i].AtFinish && roundFinish)
+                {
+                    return true;
+                }
+
+                // condition to check if the player has no fuel, and the round is finished
+                else if (!Players[i].HasPower && roundFinish)
+                {
+                    return true;
+                }
+                       
+            }
+            // Return false if the game has not ended
+            return false;
+        }//end GameOverCheck
+
     }//end SnakesAndLadders
 }
