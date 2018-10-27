@@ -91,13 +91,22 @@ namespace Game_Logic_Class
         }// end PlayOneRound
 
 
-
+        /// <summary>
+        /// Plays one round for a single player object.
+        /// In this implementation, the player object is stored in a binding list. 
+        /// One round is played by rolling the two dice, and updating the player object attributes according.
+        /// Game over conditions are checked to see when the game has finished.
+        /// 
+        /// </summary>
+        /// <param name="player"> Player object passed as a parameter. Used for step implementation.</param>
         public static void PlayOneRoundSinglePlayer(Player player)
         {
+            // If the player has power, proceed with the round
             if (player.HasPower)
             {
+                // Roll the two dice, and update the players attributed accordingly
                 player.Play(die1, die2);
-
+                // Check the game over condition
                 GameOverCheck();
             }
         }// end PlayOneRoundSinglePlayer
@@ -126,8 +135,7 @@ namespace Game_Logic_Class
                 else if (!Players[i].HasPower && roundFinish)
                 {
                     return true;
-                }
-                       
+                }         
             }
             // Return false if the game has not ended
             return false;
