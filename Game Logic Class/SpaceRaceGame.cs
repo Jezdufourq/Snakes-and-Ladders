@@ -86,7 +86,6 @@ namespace Game_Logic_Class
             foreach (Player playerObject in Players)
             {
                 PlayOneRoundSinglePlayer(playerObject);
-                GameOverCheck();
             }
         }// end PlayOneRound
 
@@ -135,7 +134,7 @@ namespace Game_Logic_Class
                 else if (!Players[i].HasPower && roundFinish)
                 {
                     return true;
-                }         
+                }
             }
             // Return false if the game has not ended
             return false;

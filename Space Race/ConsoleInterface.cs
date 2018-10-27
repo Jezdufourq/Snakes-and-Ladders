@@ -40,11 +40,20 @@ namespace Space_Race
                 int roundNumber = 0;
                 while (!SpaceRaceGame.GameOverCheck())
                 {
+                    // If the round has not finished, we need to set the round to say that it has finished
+                    // The round will always be finished in the console implementation, becauase there is no single step
+                    if (!SpaceRaceGame.roundFinish)
+                    {
+                        SpaceRaceGame.roundFinish = true;
+                    }
+
                     RoundNumberPrint(roundNumber);
                     SpaceRaceGame.PlayOneRound();
                     DisplayPlayerRound();
                     PressEnter();
                     roundNumber++;
+                    Console.WriteLine("Game finish variable: {0}", SpaceRaceGame.gameFinish);
+                    Console.WriteLine("Round finish variable: {0}", SpaceRaceGame.roundFinish);
                 } // end game loop
 
                 // Displaying the end game message
@@ -57,55 +66,40 @@ namespace Space_Race
 
 
         /// <summary>
-        /// Printing the player information for debugging
-        ///       
-        /// </summary>
-        static void playerInformation()
-        {
-
-            int i = 0;
-            foreach (object a in SpaceRaceGame.Players)
-            {
-                Console.WriteLine("Location: " + SpaceRaceGame.Players[i].Location);
-                Console.WriteLine("Name: " + SpaceRaceGame.Players[i].Name);
-                Console.WriteLine("HasPower: " + SpaceRaceGame.Players[i].HasPower);
-                Console.WriteLine("Position: " + SpaceRaceGame.Players[i].Position);
-                Console.WriteLine("RocketFuel: " + SpaceRaceGame.Players[i].RocketFuel);
-                Console.WriteLine("AtFinish: " + SpaceRaceGame.Players[i].AtFinish + Environment.NewLine + " ");
-                i++;
-            }
-        }
-
-
-        /// <summary>
-        /// Display the information at the end of the game
+        /// Displaying information to the console at the end of the game.
+        /// Information includes:
+        ///     - Who won
+        ///     - Final positions and fuel values
+        /// 
         /// Pre:    none
         /// Post:   Displaying the information of the players to the console
         /// </summary>
         static void DisplayEndGame()
         {
-
-            // check if game has ended because all players ran out of fuel
+            // Local variable to store the players who have ran out of fuel
             int counter = 0;
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {
+                // If the game has finished, and no one is at the finishing square
                 if (!SpaceRaceGame.Players[i].AtFinish)
                 {
+                    // then the counter is increased
                     counter++;
-
                 }
             }
 
-            // if counter reaches NumberOfPlayers then all players are out of fuel
+            // If counter reaches NumberOfPlayers then all players are out of fuel
             if (counter == SpaceRaceGame.NumberOfPlayers)
             {
+                // The following message is printed to the console if all players have ran out of fuel
                 Console.WriteLine("All players ran out of fuel before any reached the final square.");
             }
-
-
+            
+            // If the game has finished, printing to the console the players who have finished the game
             Console.WriteLine("\tThe following player(s) finished the game");
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {
+                // Players who are at the finishing square
                 if (SpaceRaceGame.Players[i].AtFinish)
                 {
                     Console.WriteLine("\t\t{0}", SpaceRaceGame.Players[i].Name);
@@ -113,16 +107,15 @@ namespace Space_Race
                 }
             }
 
+            // Printing to the console the players location
             Console.WriteLine("\tIndividual players finished at the location specified.");
             for (int i = 0; i < SpaceRaceGame.NumberOfPlayers; i++)
             {
+                // Printing each of the locations and fuel values
                 Console.WriteLine("\t\t{0} with {1} yottawatt of power at square {2}",
                     SpaceRaceGame.Players[i].Name, SpaceRaceGame.Players[i].RocketFuel,
                     SpaceRaceGame.Players[i].Position);
             }
-
-            Console.WriteLine();
-
         }
                
         /// <summary>
