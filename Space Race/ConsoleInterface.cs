@@ -51,9 +51,9 @@ namespace Space_Race
                 {
                     // If the round has not finished, we need to set the round to say that it has finished
                     // The round will always be finished in the console implementation, becauase there is no single step
-                    if (!SpaceRaceGame.roundFinish)
+                    if (!SpaceRaceGame.RoundFinish)
                     {
-                        SpaceRaceGame.roundFinish = true;
+                        SpaceRaceGame.RoundFinish = true;
                     }
 
                     // Main game loop implementation
@@ -255,7 +255,7 @@ namespace Space_Race
             // Conditional statement which decides if the user wants to play a new game or not
             if (userInput == "Y" || userInput == "y")
             {
-                SpaceRaceGame.gameFinish = false;
+                SpaceRaceGame.GameInPlay = false;
                 return true;
             }
             else

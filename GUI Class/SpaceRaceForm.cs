@@ -314,6 +314,16 @@ namespace GUI_Class
         private void UpdatesPlayersDataGridView()
         {
             SpaceRaceGame.Players.ResetBindings();
+
+            // Disabling player data grid and box input
+            if (SpaceRaceGame.GameInPlay)
+            {
+                playerDataGridView.Enabled = false;
+            }
+            else
+            {
+                playerDataGridView.Enabled = true;
+            }    
         }
 
         /// <summary>
@@ -360,13 +370,12 @@ namespace GUI_Class
         private void NumberOfPlayersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Whilst the round has not finished
-            if (!SpaceRaceGame.roundFinish)
+            if (!SpaceRaceGame.GameInPlay)
             {
                 // Determine the number of players from the box, and then update the data grid and players bindinglist accordingly
                 DetermineNumberOfPlayers();
                 SpaceRaceGame.SetUpPlayers();
                 UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
-
             }
             else // whilst the round has finished
             {
@@ -385,27 +394,23 @@ namespace GUI_Class
             // If the user has not selected single step
             if (NoRadioButton.Checked)
             {
+                // Game is in play
+                SpaceRaceGame.GameInPlay = true;
+
                 // Call the multistep logic function
                 MultiStepLogic();
 
                 // Check when the game is over
                 if (SpaceRaceGame.GameOverCheck())
                 {
-                    // Display the end game message
-                    DisplayEndGameMessage();
-                    // Handling the button properties
-                    GameResetButton.Enabled = true;
-                    RollDiceButton.Enabled = false;
+                    GameOverLogic();
                 }
             }
             // If the user has selected single step
             else if (YesRadioButton.Checked)
             {
-                // if the round has finished, we want to reset the boolean to start a new round
-                if (SpaceRaceGame.roundFinish)
-                {
-                    SpaceRaceGame.roundFinish = false;
-                }
+                // Game is in play
+                SpaceRaceGame.GameInPlay = true;
 
                 // Calling the single step logic method
                 SingleStepLogic();
@@ -415,20 +420,54 @@ namespace GUI_Class
                 // If the game is over 
                 if (SpaceRaceGame.GameOverCheck())
                 {
-                    // Display the game end message
-                    DisplayEndGameMessage();
-                    // Handling the button properties
-                    GameResetButton.Enabled = true;
-                    RollDiceButton.Enabled = false;
-                }
-  
-                // If the round is finished, enable the exit button
-                if (!SpaceRaceGame.roundFinish)
-                {
-                    exitButton.Enabled = false;
+                    GameOverLogic();
                 }
             }
+
+            ButtonHandling();
         }
+
+        /// <summary>
+        /// This method is used to handle the buttons following the logic as per the specifications.
+        /// 
+        /// </summary>
+        private void ButtonHandling()
+        {
+            // Handling the reset button 
+            // At the finish of the round
+            if (SpaceRaceGame.RoundFinish)
+            {
+                SpaceRaceGame.RoundFinish = false;
+                GameResetButton.Enabled = true;
+                exitButton.Enabled = true;
+            }
+            // When the round is not finished
+            else if (!SpaceRaceGame.RoundFinish)
+            {
+                GameResetButton.Enabled = false;
+                exitButton.Enabled = false;
+            }
+            // When the game is not in play
+            else if (!SpaceRaceGame.GameInPlay)
+            {
+                GameResetButton.Enabled = true;
+                exitButton.Enabled = true;
+            }
+            // When the game is in play
+            else if (SpaceRaceGame.GameInPlay)
+            {
+                GameResetButton.Enabled = false;
+                exitButton.Enabled = false;
+            }
+
+            // Disabling player data grid and box input
+            if (SpaceRaceGame.GameInPlay)
+            {
+                NumberOfPlayersBox.Enabled = false;
+                playerDataGridView.Enabled = false;
+            }
+        }
+
 
 
         /// <summary>
@@ -447,25 +486,31 @@ namespace GUI_Class
             YesRadioButton.Checked = false;
             NoRadioButton.Checked = false;
             SingleStep.Enabled = true;
+            RollDiceButton.Enabled = false;
 
             // Reset the boolean game variables
-            SpaceRaceGame.roundFinish = false;
-            SpaceRaceGame.gameFinish = false;
+            //SpaceRaceGame.RoundFinish = false;
+            // Handling the player input functionality
+            SpaceRaceGame.GameInPlay = false;
+            NumberOfPlayersBox.Enabled = true;
+            playerDataGridView.Enabled = true;
 
-            // IF the round has finished 
-            if (!SpaceRaceGame.roundFinish)
-            {
-                // Do not enable the reset button
-                GameResetButton.Enabled = false;
-            }
+        }
 
-            // If the game has finished
-            if (!SpaceRaceGame.gameFinish)
-            {
-                // Do not enable the roll button 
-                RollDiceButton.Enabled = false;
-            }
-
+        /// <summary>
+        /// Implemented to handle repeatable code for when the game is over.
+        /// Displays the end game message, removes the players from the board, and handles the buttons.
+        /// </summary>
+        private void GameOverLogic()
+        {
+            // Display the game end message
+            DisplayEndGameMessage();
+            // Reset all players
+            UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
+            // Handling the button properties
+            GameResetButton.Enabled = true;
+            RollDiceButton.Enabled = false;
+            NumberOfPlayersBox.Enabled = true;
         }
 
         /// <summary>
@@ -536,20 +581,17 @@ namespace GUI_Class
         /// <summary>
         /// Determines if the player has finished the round.
         /// Used for the implementation of the single step functionality.
+        /// Returns a bool to say that the round has finished.
         /// </summary>
         private void finishedRound()
         {
             // If the current player is equal to or greater then the total number of players
             if (currentPlayer >= SpaceRaceGame.NumberOfPlayers)
             {
-                // Then the current round is finished
                 // We reset all the round parameters
                 currentPlayer = 0;
-                exitButton.Enabled = true;
-                SpaceRaceGame.roundFinish = true;
-                // Handling the buttons
-                GameResetButton.Enabled = true;
-                GameResetButton.Enabled = true;
+                // The round has finished
+                SpaceRaceGame.RoundFinish = true;
             }
         }//end finishedRound
 
@@ -579,7 +621,7 @@ namespace GUI_Class
                     GameResetButton.Enabled = true;
 
                     // if the game has finished
-                    if (SpaceRaceGame.gameFinish)
+                    if (SpaceRaceGame.GameOverCheck())
                     {
                         // Display the end game message
                         DisplayEndGameMessage();
@@ -614,6 +656,7 @@ namespace GUI_Class
             // Remove the player, play a round and update the datagrid view and GUI
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.RemovePlayer);
             SpaceRaceGame.PlayOneRound();
+            SpaceRaceGame.RoundFinish = true;
             UpdatePlayersGuiLocations(TypeOfGuiUpdate.AddPlayer);
             UpdatesPlayersDataGridView();
         }//end MultiStepLogic
