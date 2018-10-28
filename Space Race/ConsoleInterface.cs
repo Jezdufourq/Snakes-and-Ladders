@@ -9,12 +9,8 @@ namespace Space_Race
     class Console_Class
     {
         /// <summary>
-        /// Algorithm below currently plays only one game
-        /// 
-        /// when have this working correctly, add the abilty for the user to 
-        /// play more than 1 game if they choose to do so.
+        /// Main to play Space Race Game on console. User can play multiple times if desired.
         /// </summary>
-        /// <param name="args"></param>
         static void Main(string[] args)
         {
             
