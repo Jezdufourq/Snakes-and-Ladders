@@ -125,13 +125,13 @@ namespace Game_Logic_Class
             for (int i = 0; i < NumberOfPlayers; i++)
             {
                 // Condition to check if the player is at the end square, and round is finished
-                if (Players[i].AtFinish && roundFinish)
+                if (Players[i].AtFinish && RoundFinish)
                 {
                     return true;
                 }
 
                 // condition to check if the player has no fuel, and the round is finished
-                else if (!Players[i].HasPower && roundFinish)
+                else if (!Players[i].HasPower && RoundFinish)
                 {
                     outOfPower++;
                 }
