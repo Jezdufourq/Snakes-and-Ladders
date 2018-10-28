@@ -103,8 +103,9 @@ namespace Game_Logic_Class
                 // Roll the two dice, and update the players attributed accordingly
                 player.Play(die1, die2);
                 // Check the game over condition
-                GameOverCheck();
             }
+
+            GameOverCheck();
         }// end PlayOneRoundSinglePlayer
 
 
@@ -118,25 +119,35 @@ namespace Game_Logic_Class
         /// </summary>
         public static bool GameOverCheck()
         {
+            int outOfPower = 0;
+
             // Looping through each of the player objects in the Players binding list
             for (int i = 0; i < NumberOfPlayers; i++)
             {
                 // Condition to check if the player is at the end square, and round is finished
-                if (Players[i].AtFinish && RoundFinish)
+                if (Players[i].AtFinish && roundFinish)
                 {
-                    // Return true for the game finishing
                     return true;
                 }
 
                 // condition to check if the player has no fuel, and the round is finished
-                else if (!Players[i].HasPower && RoundFinish)
+                else if (!Players[i].HasPower && roundFinish)
                 {
-                    // Return true for the game finishing
-                    return true;
+                    outOfPower++;
                 }
             }
+
+            // condition to check if all players are out of fuel
+            if (outOfPower == (NumberOfPlayers))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
             // Return false if the game has not ended
-            return false;
+
         }//end GameOverCheck
 
     }//end SnakesAndLadders

@@ -166,7 +166,7 @@ namespace Object_Classes {
         /// <param name="amount">amount of fuel used</param>
         public void ConsumeFuel(int amount) {
             Debug.Assert(amount > 0, "amount > 0");
-            if (fuelLeft >= amount) {
+            if (fuelLeft > amount) {
                 fuelLeft -= amount;
             } else {
                 fuelLeft = 0;
