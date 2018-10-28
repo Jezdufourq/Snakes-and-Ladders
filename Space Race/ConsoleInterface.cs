@@ -72,6 +72,13 @@ namespace Space_Race
                 DisplayEndGame();
                 // Wait for user to prompt new game
                 game = PromptNewGame();
+
+                // display exit message if user doesn't want to play another game
+                if (!game)
+                {
+                    Console.WriteLine("Thanks for playing!");
+                    PressEnter();
+                }
             }
         }//end Main
 

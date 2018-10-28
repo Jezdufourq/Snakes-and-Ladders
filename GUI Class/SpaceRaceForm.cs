@@ -520,7 +520,7 @@ namespace GUI_Class
         /// </summary>
         private void DisplayEndGameMessage()
         {
-            
+
             int counter = 0;
 
             // Storing a string for the message box
@@ -533,6 +533,13 @@ namespace GUI_Class
                     counter++;
 
                 }
+            }
+
+            // If counter reaches NumberOfPlayers then all players are out of fuel
+            if (counter == SpaceRaceGame.NumberOfPlayers)
+            {
+                // The following message is printed to the console if all players have ran out of fuel
+                finishMessage += ("All players ran out of fuel before any reached the final square.");
             }
 
             // Displaying the players which finished the game
